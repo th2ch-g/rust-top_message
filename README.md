@@ -3,23 +3,49 @@ Display message on top (all written in Rust)
 
 ![gif_example](img/multiple.gif)
 
+- [rust-top_message](#rust-top_message)
+  - [Dependencies](#dependencies)
+  - [Install rust-top_message](#install-rust-top_message)
+    - [1. Install by cargo](#1-install-by-cargo)
+    - [2. Install from source](#2-install-from-source)
+  - [Subcommand](#subcommand)
+  - [Quick start & Examples](#quick-start--examples)
+    - [Single mode](#single-mode)
+    - [Multiple mode](#multiple-mode)
+    - [Multiple2 mode](#multiple2-mode)
+    - [Long mode](#long-mode)
+    - [Vertical mode](#vertical-mode)
+    - [Wave mode](#wave-mode)
+    - [Check mode](#check-mode)
+  - [Subcommand options](#subcommand-options)
+    - [Single mode](#single-mode-1)
+    - [Multiple mode](#multiple-mode-1)
+    - [Multiple2 mode](#multiple2-mode-1)
+    - [Long mode](#long-mode-1)
+    - [Vertical mode](#vertical-mode-1)
+    - [Wave mode](#wave-mode-1)
+    - [Check mode](#check-mode-1)
+  - [Recommend alias](#recommend-alias)
 
 
+<a id="1"></a>
 ## Dependencies
 - [Rust](https://www.rust-lang.org/tools/install) >= 1.62.0
     - rust-top_message requires Rust environment
     - [How should I install Rust ?](rust-how-to-install.md)
 
-
+<a id="2"></a>
 ## Install rust-top_message
 There are 2 ways to install.
 
+<a id="1_1"></a>
 ### 1. Install by cargo
 ~~~
 cargo install --git https://github.com/th2ch-g/rust-top_message.git
 ~~~
 The executable file is in `~/.cargo/bin/rust-top_message`
 
+<a id="1_2"></a>
 ### 2. Install from source
 ~~~
 git clone https://github.com/th2ch-g/rust-top_message.git && \
@@ -29,6 +55,7 @@ cargo build --release
 The executable file is in `./target/release/rust-top_message`
 
 
+<a id="3"></a>
 ## Subcommand
 ~~~
 USAGE:
@@ -50,27 +77,28 @@ SUBCOMMANDS:
 ~~~
 
 
-
+<a id="4"></a>
 ## Quick start & Examples
 
+<a id="4_1"></a>
 ### Single mode
 ~~~
 $ rust-top_message single -m hello_world -@ 4 -t 20 & top
 ~~~
 
+
 ![single_example](img/single.png)
 
-
+<a id="4_2"></a>
 ### Multiple mode
 ~~~
 $ rust-top_message multiple -m hello_world -@ 4 -t 20 & top
 ~~~
 
 
-
 ![multiple_example](img/multiple.png)
 
-
+<a id="4_3"></a>
 ### Multiple2 mode
 ~~~
 $ rust-top_message multiple2 -m "hello_world1 hello_world2 hello_world3" -t 20 & top
@@ -79,7 +107,7 @@ $ rust-top_message multiple2 -m "hello_world1 hello_world2 hello_world3" -t 20 &
 ![multiple2_example](img/multiple2.png)
 
 
-
+<a id="4_4"></a>
 ### Long mode
 ~~~
 $ rust-top_message long -m Rust_is_the_greatest_and_best_programming_language_ever -t 20 & top
@@ -88,7 +116,7 @@ $ rust-top_message long -m Rust_is_the_greatest_and_best_programming_language_ev
 ![long_example](img/long.png)
 
 
-
+<a id="4_5"></a>
 ### Vertical mode
 ~~~
 $ rust-top_message vertical -m "ThankYou GoodLuck" -t 20 & top
@@ -97,6 +125,7 @@ $ rust-top_message vertical -m "ThankYou GoodLuck" -t 20 & top
 ![vertical_example](img/vertical.png)
 
 
+<a id="4_6"></a>
 ### Wave mode
 ~~~
 $ rust-top_message wave -m 123456789 -@ 4 & top
@@ -105,7 +134,7 @@ $ rust-top_message wave -m 123456789 -@ 4 & top
 Check by yourself!
 
 
-
+<a id="4_7"></a>
 ### Check mode
 
 check if the directories created by rust-top_message remains in current directory
@@ -130,9 +159,10 @@ $ rust-top_message check --rmcheck
 ~~~
 
 
-
+<a id="5"></a>
 ## Subcommand options
 
+<a id="5_1"></a>
 ### Single mode
 
 Option
@@ -149,7 +179,7 @@ OPTIONS:
     -V, --version          Print version information
 ~~~
 
-
+<a id="5_2"></a>
 ### Multiple mode
 
 Option
@@ -166,7 +196,7 @@ OPTIONS:
     -V, --version          Print version information
 ~~~
 
-
+<a id="5_3"></a>
 ### Multiple2 mode
 
 Option
@@ -193,7 +223,7 @@ OPTIONS:
             Print version information
 ~~~
 
-
+<a id="5_4"></a>
 ### Long mode
 
 Option
@@ -211,7 +241,7 @@ OPTIONS:
     -V, --version          Print version information
 ~~~
 
-
+<a id="5_5"></a>
 ### Vertical mode
 
 Option
@@ -238,7 +268,7 @@ OPTIONS:
             Print version information
 ~~~
 
-
+<a id="5_6"></a>
 ### Wave mode
 
 Option
@@ -256,7 +286,7 @@ OPTIONS:
     -V, --version          Print version information
 ~~~
 
-
+<a id="5_7"></a>
 ### Check mode
 
 Option
@@ -275,7 +305,7 @@ OPTIONS:
     -V, --version          Print version information
 ~~~
 
-
+<a id="6"></a>
 ## Recommend alias
 
 Since rust-top_message is a long program name, it is recommended to register alias on your ~/.zshrc and so on.
