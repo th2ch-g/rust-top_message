@@ -8,7 +8,7 @@ pub fn execute(dir_name: &str, message: &str, thread:usize, time: usize) {
     // message to list
     let message_list: Vec<String> = process_message_list(message, thread);
 
-    common_execute(dir_name, message_list, time, false);
+    common_execute(dir_name, message_list, time, true);
 
 }
 
