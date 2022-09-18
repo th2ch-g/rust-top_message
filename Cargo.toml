@@ -1,6 +1,6 @@
 [package]
 name = "rust-top_message"
-version = "1.0.0"
+version = "1.0.1"
 authors = ["th 2022"]
 edition = "2021"
 description = "Display message on top"
@@ -8,9 +8,9 @@ description = "Display message on top"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-clap = { version = "*", features = ["derive"] }
-chrono = "*"
-rand = "*"
+clap = { version = "3.2.22", features = ["derive"] }
+chrono = "0.4.22"
+rand = "0.8.5"
 
 [profile.release]
 lto = true
