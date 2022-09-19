@@ -143,7 +143,7 @@ pub struct VerticalArg {
 #[clap(arg_required_else_help = true, version)]
 pub struct WaveArg {
 
-    #[clap(short, long, value_name = "STR", help = "one message on one top like electric bulletin board\n[CAUTION] number of thread used is automatically determined", display_order = 1)]
+    #[clap(short, long, value_name = "STR", help = "one message on one top like electric bulletin board\n[CAUTION] execute time is automatically determined", display_order = 1)]
     pub message: String,
 
     #[clap(short = '@', long, value_name = "INT", default_value = "1", help = "thread numer", display_order = 2)]
