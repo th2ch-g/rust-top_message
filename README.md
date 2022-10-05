@@ -1,5 +1,34 @@
+<p align="center">
+  <img width="200" src="img/logo.png" />  
+  <h2 align="center"> rust-top_message </h2>
+  <p align="center">✨✨ Display message on top 😱😭</p>
+</p>
+
+<p align="center">
+  <a>
+    <img src="https://img.shields.io/github/stars/th2ch-g/rust-top_message"/>
+  </a>
+  <a>
+    <img src="https://img.shields.io/github/license/th2ch-g/rust-top_message"/>
+  </a>
+  <a>
+    <img src="https://github.com/th2ch-g/rust-top_message/actions/workflows/rust.yaml/badge.svg"/>
+  </a>
+  <a>
+   <img src="https://img.shields.io/github/languages/top/th2ch-g/rust-top_message"/>
+  </a>
+  <a>
+    <img src="https://img.shields.io/github/last-commit/th2ch-g/rust-top_message">
+  </a>
+  <a>
+    <img src="https://img.shields.io/github/repo-size/th2ch-g/rust-top_message">
+  </a>
+</p>
+
+
 # rust-top_message
-Display message on top (all written in Rust)
+
+Display message on top
 
 ![gif_example](img/multiple.gif)
 
