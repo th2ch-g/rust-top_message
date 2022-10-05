@@ -27,14 +27,11 @@
 
 
 # rust-top_message
-
-Display message on top
-
 ![gif_example](img/multiple.gif)
 
 - [rust-top_message](#rust-top_message)
   - [Dependencies](#dependencies)
-  - [Install rust-top_message](#install-rust-top_message)
+  - [Install](#install)
     - [1. Install by cargo](#1-install-by-cargo)
     - [2. Install from source](#2-install-from-source)
   - [Gallery](#gallery)
@@ -47,8 +44,6 @@ Display message on top
     - [Vertical mode](#vertical-mode)
     - [Wave mode](#wave-mode)
     - [Check mode](#check-mode)
-  - [Recommend alias](#recommend-alias)
-
 
 
 ## Dependencies
@@ -57,7 +52,7 @@ Display message on top
     - [How should I install Rust ?](rust-how-to-install.md)
 
 
-## Install rust-top_message
+## Install
 There are 2 ways to install.
 
 
@@ -189,14 +184,3 @@ $ rust-top_message check --rmcheck
 [CHECK] .tmp_20220731131730_903474437_68694 is seems to be directory created by rust-top_message
 [REMOVED] All directories that rust-top_message may have created were successfully deleted
 ~~~
-
-
-## Recommend alias
-
-Since rust-top_message is a long program name, it is recommended to register alias on your ~/.zshrc and so on.
-
-~~~
-alias rtm="[Your_rust-top_message_realpath]"
-~~~
-
-
