@@ -27,7 +27,7 @@
 
 
 # rust-top_message
-![gif_example](img/multiple.gif)
+![gif_example](img/example.gif)
 
 - [rust-top_message](#rust-top_message)
   - [Dependencies](#dependencies)
