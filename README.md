@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="200" src="img/logo.png" />  
+  <img width="200" src="img/logo.png" />
   <h2 align="center"> rust-top_message </h2>
   <p align="center">✨✨ Display message on top 😱😭</p>
 </p>
@@ -18,10 +18,13 @@
    <img src="https://img.shields.io/github/languages/top/th2ch-g/rust-top_message"/>
   </a>
   <a>
-    <img src="https://img.shields.io/github/last-commit/th2ch-g/rust-top_message">
+    <img src="https://img.shields.io/github/last-commit/th2ch-g/rust-top_message"/>
   </a>
   <a>
-    <img src="https://img.shields.io/github/repo-size/th2ch-g/rust-top_message">
+    <img src="https://img.shields.io/github/repo-size/th2ch-g/rust-top_message"/>
+  </a>
+  <a>
+    <img src="https://img.shields.io/badge/rust-1.62.0+-blueviolet.svg?logo=rust"/>
   </a>
 </p>
 
