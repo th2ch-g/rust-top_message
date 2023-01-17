@@ -36,7 +36,6 @@
   - [Install](#install)
     - [Dependencies](#dependencies)
   - [Gallery](#gallery)
-  - [Subcommand](#subcommand)
   - [Quick start \& Examples](#quick-start--examples)
     - [Single mode](#single-mode)
     - [Multiple mode](#multiple-mode)
@@ -74,26 +73,6 @@ cargo install --git https://github.com/th2ch-g/rust-top_message.git
 <a href=#vertical>
     <img src="img/vertical.png" class="galleryItem" width=200px></img>
 </a>
-
-## Subcommand
-~~~
-USAGE:
-    rust-top_message <SUBCOMMAND>
-
-OPTIONS:
-    -h, --help       Print help information
-    -V, --version    Print version information
-
-SUBCOMMANDS:
-    single       one message on one top
-    multiple     one message on many top
-    multiple2    many message on many top
-    long         one long message on many top with newline
-    vertical     message on many top vertically
-    wave         one message on many top like electric bulletin board
-    check        check if top_message can be executed normally
-    help         Print this message or the help of the given subcommand(s)
-~~~
 
 ## Quick start & Examples
 <a id="single"></a>

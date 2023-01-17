@@ -20,15 +20,13 @@ pub fn compile(dir_name: &str, message: &str) {
 }
 
 pub fn compile2(dir_name: &str, subdir: &str, message: &str) {
-
     Command::new("rustc")
         .arg(&format!("{}/{}/{}", dir_name, subdir, "ms.rs"))
         .arg("-o")
-        .arg(&format!("./{}/{}/{}", dir_name, "run", message))
+        .arg(&format!("{}/{}/{}", dir_name, "run", message))
         .output()
         .expect(&format!("\n[ERROR] Failed to rustc compile\n[ERROR] {} needs rustc\n[ERROR] Please check Rust environment or install Rust https://www.rust-lang.org/tools/install\n",
                          env!("CARGO_PKG_NAME")));
-
 }
 
 pub fn record_current_dir() -> String {
@@ -41,7 +39,6 @@ pub fn record_current_dir() -> String {
             String::from("Falied to record current directory")
         }
     }
-
 }
 
 pub fn cd(dir_name: &str) {
@@ -54,13 +51,11 @@ pub fn cd(dir_name: &str) {
     }
 }
 
-
 pub fn run(dir_name: &str, message: &str) {
     Command::new(&format!("{}/{}", dir_name, message))
         .output()
         .expect("\n[ERROR] Failed to run");
 }
-
 
 pub fn rmdir(dir_name: &str) {
     let rmdir_result = fs::remove_dir_all(dir_name);
@@ -132,13 +127,10 @@ pub fn common_execute(dir_name: &str, message_list: Vec<String>, time: usize, si
 
     let mut thrs = Vec::new();
     let mut count = message_list.len();
-
     for i in 0..message_list.len() {
-
         let dir_name_r = Arc::clone(&dir_name_t);
         let time_r = Arc::clone(&time_t);
         let message_list_r = Arc::clone(&message_list_t);
-
         if single_bool {
             thrs.push(thread::spawn(move || {
                 mkdir(&format!("{}/{}", dir_name_r, i));
@@ -153,11 +145,8 @@ pub fn common_execute(dir_name: &str, message_list: Vec<String>, time: usize, si
                 compile2(&dir_name_r, &i.to_string(), &message_list_r[i]);
             }));
         }
-
         count -= 1;
-
     }
-
     thrs.into_iter().for_each(|h| h.join().unwrap());
 
     // record current dir
@@ -166,17 +155,12 @@ pub fn common_execute(dir_name: &str, message_list: Vec<String>, time: usize, si
 
     // run
     let mut thrs = Vec::new();
-
     for i in 0..message_list.len() {
-
         let message_list_r = Arc::clone(&message_list_t);
-
         thrs.push(thread::spawn(move || {
             run(".", &message_list_r[i]);
         }));
-
     }
-
     thrs.into_iter().for_each(|h| h.join().unwrap());
 
     // cd parent dir
