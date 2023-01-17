@@ -1,4 +1,3 @@
-
 use std::io::Write;
 use std::fs::File;
 use std::fs;
@@ -9,9 +8,7 @@ use std::path;
 use std::thread;
 use std::sync::Arc;
 
-
 pub fn compile(dir_name: &str, message: &str) {
-
     Command::new("rustc")
         .arg(&format!("{}/{}", dir_name, "ms.rs"))
         .arg("-o")
@@ -21,8 +18,6 @@ pub fn compile(dir_name: &str, message: &str) {
                          env!("CARGO_PKG_NAME")));
 
 }
-
-
 
 pub fn compile2(dir_name: &str, subdir: &str, message: &str) {
 
@@ -36,13 +31,9 @@ pub fn compile2(dir_name: &str, subdir: &str, message: &str) {
 
 }
 
-
-
 pub fn record_current_dir() -> String {
-
     let current_dir = path::PathBuf::from("./");
     let current_dir = fs::canonicalize(&current_dir);
-
     match current_dir {
         Ok(s) => s.to_string_lossy().to_string(),
         Err(_) => {
@@ -54,21 +45,17 @@ pub fn record_current_dir() -> String {
 }
 
 pub fn cd(dir_name: &str) {
-
     let cd_result = env::set_current_dir(dir_name);
-
     match cd_result {
         Ok(_) => (),
         Err(_) => {
             println!("[ERROR] Cannot cd directory created by {}", env!("CARGO_PKG_NAME"));
         }
     }
-
 }
 
 
 pub fn run(dir_name: &str, message: &str) {
-
     Command::new(&format!("{}/{}", dir_name, message))
         .output()
         .expect("\n[ERROR] Failed to run");
@@ -76,105 +63,72 @@ pub fn run(dir_name: &str, message: &str) {
 
 
 pub fn rmdir(dir_name: &str) {
-
     let rmdir_result = fs::remove_dir_all(dir_name);
-
     match rmdir_result {
-
         Ok(_) => { () },
         Err(_) => {
             println!("[ERROR] Failed to remove directory");
             println!("[ERROR] But continue");
         }
     }
-
 }
 
-
 pub fn mkdir(dir_name: &str) {
-
     let mkdir_result = fs::create_dir(dir_name);
-
     match mkdir_result {
-
         Ok(_) => { () },
         Err(_) => {
             println!("[ERROR] Failed to create directory");
             println!("[ERROR] Check for directories with the same name");
             process::exit(1);
         }
-
     }
-
-
 }
 
-
 pub fn cat_id(dir_name: &str) {
-
     let mut file = File::create(&format!("{}/{}-{}", dir_name, env!("CARGO_PKG_NAME"), "idfile")).unwrap();
-
     file.write_all(format!("This file is {} dedicated id file", env!("CARGO_PKG_NAME")).as_bytes()).unwrap();
-
 }
 
 
 pub fn cat(dir_name: &str, thread: usize, time: usize) {
 
-
     let mut file = File::create(&format!("{}/{}", dir_name, "ms.rs")).unwrap();
 
     file.write_all(b"
-#![allow(unused)]
-use std::thread;
-fn main() {
+use std::thread;use std::time::Instant;use std::sync::Arc;
     ").unwrap();
-
-    file.write_all(format!("let time: usize = {}; let thread: usize = {};", time, thread).as_bytes()).unwrap();
-
+    file.write_all(format!("const THREAD: usize = {};const TIME: u64 = {};", thread, time).as_bytes()).unwrap();
     file.write_all(b"
+fn main() {
+    let start = Arc::new(Instant::now());
     let mut thrs = Vec::new();
-    for _ in 0..thread {
+    for _ in 0..THREAD {
+        let start = Arc::clone(&start);
         thrs.push(thread::spawn(move || {
-        run(time);
-        }))
+            loop { if start.elapsed().as_secs() >= TIME { break } }
+        }));
     }
     thrs.into_iter().for_each(|h| h.join().unwrap());
 }
-fn run(time: usize) {
-    for _ in 0..=time {
-        for _ in 0..45000000 {
-
-        }
-    }
-}
                    ").unwrap();
-
-
 }
-
 
 //======================================================================
 
-
-
 pub fn common_execute(dir_name: &str, message_list: Vec<String>, time: usize, single_bool: bool) {
-
 
     // data access for thread
     let dir_name_t = Arc::new(dir_name.to_string().clone());
     let time_t = Arc::new(time.clone());
     let message_list_t = Arc::new(message_list.clone());
 
-
     // mkdir
     mkdir(dir_name);
     mkdir(&format!("{}/{}", dir_name, "run"));
 
-
     // create file & additional dir & compile
     cat_id(dir_name);
-
 
     let mut thrs = Vec::new();
     let mut count = message_list.len();
@@ -210,7 +164,6 @@ pub fn common_execute(dir_name: &str, message_list: Vec<String>, time: usize, si
     let current_dir = record_current_dir();
     cd(&format!("{}/{}", dir_name, "run"));
 
-
     // run
     let mut thrs = Vec::new();
 
@@ -226,13 +179,9 @@ pub fn common_execute(dir_name: &str, message_list: Vec<String>, time: usize, si
 
     thrs.into_iter().for_each(|h| h.join().unwrap());
 
-
     // cd parent dir
     cd(&current_dir);
 
     // rmdir
     rmdir(dir_name);
-
 }
-
-

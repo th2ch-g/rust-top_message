@@ -60,7 +60,7 @@ pub struct SingleArg {
     #[clap(short, long, value_name = "INT", default_value = "10", help = "display time(s)", display_order = 3)]
     pub time: usize,
 
-    #[clap(long = "tmpdir", value_name = "STR", default_value = "./.tmp_(date_randomnumber_pid)", help = "tmp directory name", display_order = 4)]
+    #[clap(long = "tmpdir", value_name = "STR", default_value = "/tmp/tmp_rtm_(date_randomnumber_pid)", help = "tmp directory name", display_order = 4)]
     pub tmpdir: String,
 
 }
@@ -79,7 +79,7 @@ pub struct MultipleArg {
     #[clap(short, long, value_name = "INT", default_value = "10", help = "display time(s)", display_order = 3)]
     pub time: usize,
 
-    #[clap(long = "tmpdir", value_name = "STR", default_value = "./.tmp_(date_randomnumber_pid)", help = "tmp directory name", display_order = 4)]
+    #[clap(long = "tmpdir", value_name = "STR", default_value = "/tmp/tmp_rtm_(date_randomnumber_pid)", help = "tmp directory name", display_order = 4)]
     pub tmpdir: String,
 
 }
@@ -96,7 +96,7 @@ pub struct Multiple2Arg {
     #[clap(short, long, value_name = "INT", default_value = "10", help = "display time(s)", display_order = 2)]
     pub time: usize,
 
-    #[clap(long = "tmpdir", value_name = "STR", default_value = "./.tmp_(date_randomnumber_pid)", help = "tmp directory name", display_order = 3)]
+    #[clap(long = "tmpdir", value_name = "STR", default_value = "/tmp/tmp_rtm_(date_randomnumber_pid)", help = "tmp directory name", display_order = 3)]
     pub tmpdir: String,
 
 }
@@ -116,7 +116,7 @@ pub struct LongArg {
     #[clap(short, long, value_name = "INT", default_value = "12", help = "characters per top", display_order = 3)]
     pub length: usize,
 
-    #[clap(long = "tmpdir", value_name = "STR", default_value = "./.tmp_(date_randomnumber_pid)", help = "tmp directory name", display_order = 4)]
+    #[clap(long = "tmpdir", value_name = "STR", default_value = "/tmp/tmp_rtm_(date_randomnumber_pid)", help = "tmp directory name", display_order = 4)]
     pub tmpdir: String,
 
 }
@@ -133,7 +133,7 @@ pub struct VerticalArg {
     #[clap(short, long, value_name = "INT", default_value = "10", help = "display time(s)", display_order = 2)]
     pub time: usize,
 
-    #[clap(long = "tmpdir", value_name = "STR", default_value = "./.tmp_(date_randomnumber_pid)", help = "tmp directory name", display_order = 3)]
+    #[clap(long = "tmpdir", value_name = "STR", default_value = "/tmp/tmp_rtm_(date_randomnumber_pid)", help = "tmp directory name", display_order = 3)]
     pub tmpdir: String,
 
 }
@@ -152,7 +152,7 @@ pub struct WaveArg {
     #[clap(short, long, value_name = "INT", default_value = "12", help = "characters per top", display_order = 3)]
     pub length: usize,
 
-    #[clap(long = "tmpdir", value_name = "STR", default_value = "./.tmp_(date_randomnumber_pid)", help = "tmp directory name", display_order = 4)]
+    #[clap(long = "tmpdir", value_name = "STR", default_value = "/tmp/tmp_rtm_(date_randomnumber_pid)", help = "tmp directory name", display_order = 4)]
     pub tmpdir: String,
 
 }

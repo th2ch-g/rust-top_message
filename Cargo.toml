@@ -1,6 +1,6 @@
 [package]
 name = "rust-top_message"
-version = "1.0.2"
+version = "1.1.0"
 authors = ["th 2022"]
 edition = "2021"
 description = "Display message on top"
