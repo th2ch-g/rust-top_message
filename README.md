@@ -89,7 +89,7 @@ module load openmpi intel-mpi
 <a id="single"></a>
 ### Single mode
 ~~~
-mpirun -np 4  single -m hello_world -@ 4 -t 20 & top
+mpirun -np 4 rtm_mpi single -m hello_world -@ 4 -t 20 & top
 ~~~
 
 <a id="multiple"></a>
