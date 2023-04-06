@@ -12,11 +12,26 @@ use chrono::Utc;
 use rand::Rng;
 use std::env;
 use std::process;
+use mpi::traits::*;
 
 fn main() {
 
     // arg
     let cli: MainArg = arg::arg();
+
+    // mpi
+    let universe = mpi::initialize().unwrap();
+    let world = universe.world();
+    let rank = world.rank();
+    let procs = world.size();
+    let root_rank = 0;
+    world.barrier();
+    if rank == root_rank {
+        println!("{} done", env!("CARGO_PKG_NAME"));
+    }
+}
+
+fn process_each_mode(cli: &MainArg) {
 
     // process by mode
     match &cli.mode {
@@ -62,8 +77,8 @@ fn main() {
             check::execute(check_arg.onlycheck, check_arg.onlyrustcheck, check_arg.onlydircheck, check_arg.rmcheck);
         },
     }
-    println!("{} done", env!("CARGO_PKG_NAME"));
 }
+
 
 fn process_tmpdir_name(input_name: &str) -> String {
     let default_tmpdir_name = String::from("/tmp/tmp_rtm_(date_randomnumber_pid)");

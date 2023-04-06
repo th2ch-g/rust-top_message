@@ -11,6 +11,7 @@ description = "Display message on top"
 clap = { version = "3.2.22", features = ["derive"] }
 chrono = "0.4.22"
 rand = "0.8.5"
+mpi = "0.6.0"
 
 [profile.release]
 lto = true
