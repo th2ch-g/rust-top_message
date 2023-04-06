@@ -23,8 +23,9 @@ fn main() {
     let universe = mpi::initialize().unwrap();
     let world = universe.world();
     let rank = world.rank();
-    let procs = world.size();
+    //let procs = world.size();
     let root_rank = 0;
+    process_each_mode(&cli);
     world.barrier();
     if rank == root_rank {
         println!("{} done", env!("CARGO_PKG_NAME"));

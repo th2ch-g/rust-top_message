@@ -1,9 +1,9 @@
 [package]
-name = "rust-top_message"
-version = "1.1.1"
-authors = ["th 2022"]
+name = "rtm_mpi"
+version = "1.1.2"
+authors = ["th 2023"]
 edition = "2021"
-description = "Display message on top"
+description = "rust-top_message, openMPI: Display message on top"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
