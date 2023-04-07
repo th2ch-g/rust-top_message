@@ -49,13 +49,13 @@
 
 ## Install
 ~~~
-# 1. rtm_mpi build
+# 1. load openmpi, intel-mpi (If you don't have module command, please install these dependencies)
+module load openmpi intel-mpi
+
+# 2. rtm_mpi build
 git clone -b mpi_dev https://github.com/th2ch-g/rust-top_message.git && \
 cd rust_top_message && \
 cargo build -r
-
-# 2. load openmpi, intel-mpi (If you don't have module command, please install these dependencies)
-module load openmpi intel-mpi
 ~~~
 
 ### Dependencies
