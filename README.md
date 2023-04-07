@@ -44,6 +44,7 @@
     - [Vertical mode](#vertical-mode)
     - [Wave mode](#wave-mode)
     - [Check mode](#check-mode)
+  - [Other version](#other-version)
 
 ## Install
 ~~~
@@ -128,3 +129,9 @@ $ rust-top_message check --rmcheck
 [CHECK] .tmp_20220731131730_903474437_68694 is seems to be directory created by rust-top_message
 [REMOVED] All directories that rust-top_message may have created were successfully deleted
 ~~~
+
+## Other version
+- [rtm_mpi](https://github.com/th2ch-g/rust-top_message/tree/mpi_dev)
+  - rust-top_message OpenMPI version
+<!-- - [rtm_gpu]() -->
+<!--   - rust-top_message GPU version -->
