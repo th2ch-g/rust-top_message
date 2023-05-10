@@ -1,9 +1,6 @@
-
-use crate::common::{ * };
-
+use crate::common::*;
 
 pub fn execute(dir_name: &str, message: &str, thread: usize, time: usize) {
-
     // mkdir
     mkdir(dir_name);
 
@@ -28,5 +25,4 @@ pub fn execute(dir_name: &str, message: &str, thread: usize, time: usize) {
 
     // rmdir
     rmdir(dir_name);
-
 }
