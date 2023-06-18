@@ -37,3 +37,15 @@ jobs:
         with:
           commit_message: '[Action] cargo fmt'
 
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: rustup
+        run: rustup component add clippy
+      - name: version
+        run: cargo --version
+      # - name: lint
+      #   run: cargo clippy
