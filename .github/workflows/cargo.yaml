@@ -13,7 +13,8 @@ jobs:
     name: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: checkout
+        uses: actions/checkout@v3
       - name: version
         run: cargo --version
       - name: build
@@ -23,13 +24,10 @@ jobs:
     name: format
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-      - run: rustup component add rustfmt
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: rustup
+        run: rustup component add rustfmt
       - name: version
         run: cargo --version
       - name: format
