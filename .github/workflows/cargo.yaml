@@ -26,10 +26,14 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+      - name: rustup version
+        uses: rustup --version
       - name: rustup
         run: rustup component add rustfmt
       - name: version
         run: cargo --version
+      - name: rustfmt version
+        run: cargo fmt --version
       - name: format
         run: cargo fmt
       - name: commit
@@ -43,9 +47,13 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+      - name: rustup version
+        uses: rustup --version
       - name: rustup
         run: rustup component add clippy
-      - name: version
+      - name: cargo version
         run: cargo --version
-      # - name: lint
-      #   run: cargo clippy
+      - name: clippy version
+        run: cargo clippy --version
+      - name: lint
+        run: cargo clippy
