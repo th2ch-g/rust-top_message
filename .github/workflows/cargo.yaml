@@ -1,4 +1,4 @@
-name: cargo compile
+name: cargo
 
 on:
   push:
@@ -10,22 +10,24 @@ on:
 
 jobs:
   build:
+    name: build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Build
-      run: cargo build --release
+      - uses: actions/checkout@v3
+      - name: Build
+        run: cargo build --release
+
   format:
+    name: format
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
       - uses: actions/checkout@v3
 
       - name: format
         run: cargo fmt
 
       - name: commit
-      - uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: '[Action] cargo fmt'
 
