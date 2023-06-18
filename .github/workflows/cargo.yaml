@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      - name: version
+      - name: cargo version
         run: cargo --version
       - name: build
         run: cargo build --release
@@ -27,10 +27,10 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
       - name: rustup version
-        uses: rustup --version
+        run: rustup --version
       - name: rustup
         run: rustup component add rustfmt
-      - name: version
+      - name: cargo version
         run: cargo --version
       - name: rustfmt version
         run: cargo fmt --version
@@ -48,7 +48,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
       - name: rustup version
-        uses: rustup --version
+        run: rustup --version
       - name: rustup
         run: rustup component add clippy
       - name: cargo version
