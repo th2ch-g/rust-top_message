@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    types:
-      - closed
     pull_request:
       branches:
         - main
