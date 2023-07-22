@@ -10,13 +10,9 @@ pub mod wave;
 use crate::arg::*;
 use chrono::Utc;
 use rand::Rng;
-use std::env;
 use std::process;
 
-pub fn rtm_run() {
-    // arg
-    let cli: MainArg = arg::arg();
-
+pub fn rtm_run(cli: &MainArg) {
     // process by mode
     match &cli.mode {
         // single mode
@@ -80,7 +76,6 @@ pub fn rtm_run() {
             );
         }
     }
-    println!("{} done", env!("CARGO_PKG_NAME"));
 }
 
 fn process_tmpdir_name(input_name: &str) -> String {

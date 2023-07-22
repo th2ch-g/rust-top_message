@@ -64,7 +64,8 @@ cargo build -r
 ~~~
 
 ### Dependencies
-- openmpi
+- openmpi(4.0.3)
+- intel-mpi(19.0)
 
 
 ## Gallery
