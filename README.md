@@ -35,6 +35,8 @@
 - [rust-top\_message](#rust-top_message)
   - [Install](#install)
     - [Dependencies](#dependencies)
+  - [Install OpenMPI version](#install-openmpi-version)
+    - [Dependencies](#dependencies-1)
   - [Gallery](#gallery)
   - [Quick start \& Examples](#quick-start--examples)
     - [Single mode](#single-mode)
@@ -44,15 +46,26 @@
     - [Vertical mode](#vertical-mode)
     - [Wave mode](#wave-mode)
     - [Check mode](#check-mode)
-  - [Other version](#other-version)
 
 ## Install
 ~~~
 cargo install --git https://github.com/th2ch-g/rust-top_message.git
 ~~~
+
 ### Dependencies
-- [Rust](https://www.rust-lang.org/tools/install) >= 1.62.0
+- [Rust](https://www.rust-lang.org/tools/install) (tested rustc 1.71.0, cargo 1.71.0)
     - rust-top_message requires Rust environment
+
+## Install OpenMPI version
+~~~
+cd rtm-mpi
+cargo build -r
+# The binary named rtm_mpi will be created at ./target/release/rtm_mpi
+~~~
+
+### Dependencies
+- openmpi
+
 
 ## Gallery
 <a href=#single>
@@ -79,59 +92,54 @@ cargo install --git https://github.com/th2ch-g/rust-top_message.git
 <a id="single"></a>
 ### Single mode
 ~~~
-rust-top_message single -m hello_world -@ 4 -t 20 & top
+rtm single -m hello_world -@ 4 -t 20 & top
 ~~~
 
 <a id="multiple"></a>
 ### Multiple mode
 ~~~
-rust-top_message multiple -m hello_world -@ 4 -t 20 & top
+rtm multiple -m hello_world -@ 4 -t 20 & top
 ~~~
 
 <a id="multiple2"></a>
 ### Multiple2 mode
 ~~~
-rust-top_message multiple2 -m "hello_world1 hello_world2 hello_world3" -t 20 & top
+rtm multiple2 -m "hello_world1 hello_world2 hello_world3" -t 20 & top
 ~~~
 
 <a id="long"></a>
 ### Long mode
 ~~~
-rust-top_message long -m Rust_is_the_greatest_and_best_programming_language_ever -t 20 & top
+rtm long -m Rust_is_the_greatest_and_best_programming_language_ever -t 20 & top
 ~~~
 
 <a id="vertical"></a>
 ### Vertical mode
 ~~~
-rust-top_message vertical -m "ThankYou GoodLuck" -t 20 & top
+rtm vertical -m "ThankYou GoodLuck" -t 20 & top
 ~~~
 
 ### Wave mode
 ~~~
-rust-top_message wave -m 123456789 -@ 4 & top
+rtm wave -m 123456789 -@ 4 & top
 ~~~
 
 ### Check mode
-check if the directories created by rust-top_message remains in current directory
+- check if the directories created by rust-top_message remains in current directory
 ~~~
-$ rust-top_message check --onlycheck
+$ rtm check --onlycheck
 [CHECK] rustc seems to be installed
-[CHECK] .tmp_20220731131724_487375867_68549 is seems to be directory created by rust-top_message
-[CHECK] .tmp_20220731131730_903474437_68694 is seems to be directory created by rust-top_message
+[CHECK] .tmp_20220731131724_487375867_68549 is seems to be directory created by rtm-lib
+[CHECK] .tmp_20220731131730_903474437_68694 is seems to be directory created by rtm-lib
 [CHECK] If you want to delete these directory, please execute --rmcheck option
 ~~~
 
-check the directory created by rust-top_message && remove those directory
+- check the directory created by rust-top_message && remove those directory
 ~~~
-$ rust-top_message check --rmcheck
+$ rtm check --rmcheck
 [CHECK] rustc seems to be installed
-[CHECK] .tmp_20220731131724_487375867_68549 is seems to be directory created by rust-top_message
-[CHECK] .tmp_20220731131730_903474437_68694 is seems to be directory created by rust-top_message
-[REMOVED] All directories that rust-top_message may have created were successfully deleted
+[CHECK] .tmp_20220731131724_487375867_68549 is seems to be directory created by rtm-lib
+[CHECK] .tmp_20220731131730_903474437_68694 is seems to be directory created by rtm-lib
+[REMOVED] All directories that rtm-lib may have created were successfully deleted
 ~~~
 
-## Other version
-- [rtm_mpi](https://github.com/th2ch-g/rust-top_message/tree/mpi_dev)
-  - rust-top_message OpenMPI version
-<!-- - [rtm_gpu]() -->
-<!--   - rust-top_message GPU version -->
