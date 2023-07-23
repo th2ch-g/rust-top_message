@@ -1,4 +1,4 @@
-use clap::{Parser, Subcommand};
+use clap::{Parser, Subcommand, ValueEnum};
 
 #[derive(Parser, Debug, Clone)]
 #[clap(version, about)] //#[clap(author, version, about)]
@@ -36,6 +36,10 @@ pub enum Mode {
     /// check if top_message can be executed normally
     #[clap(display_order = 7)]
     Check(CheckArg),
+
+    /// one message on top and many message on nvtop
+    #[clap(display_order = 8)]
+    Gpu(GpuArg),
 }
 
 #[derive(Debug, clap::Args, Clone)]
@@ -302,6 +306,31 @@ pub struct CheckArg {
         display_order = 4
     )]
     pub rmcheck: bool,
+}
+
+#[derive(Debug, clap::Args, Clone)]
+#[clap(arg_required_else_help = true, version)]
+pub struct GpuArg {
+    #[clap(short, long, value_name = "STR", help = "message that appears on top", display_order = 1)]
+    pub message: String,
+
+    #[clap(short = '@', long, value_name = "INT", default_value = "1", help = "number of gpu", display_order = 2)]
+    pub gpunum: usize,
+
+    #[clap(short = 'g', long, value_enum, default_value_t= GpuSupport::Opencl, help = "gpu support", display_order = 3)]
+    pub gpusupport: GpuSupport,
+
+    #[clap(short, long, value_name = "INT", default_value = "10", help = "display time(s)", display_order = 4)]
+    pub time: usize,
+
+    #[clap(long, value_name = "STR", default_value = "/tmp/tmp_rtm_(date_randomnumber_pid)", help = "tmp directory path", display_order = 5)]
+    pub tmpdir: String,
+}
+
+#[derive(Debug, Clone, ValueEnum)]
+pub enum GpuSupport {
+    Opencl,
+    Cuda,
 }
 
 pub fn arg() -> MainArg {

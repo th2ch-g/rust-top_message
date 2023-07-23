@@ -7,6 +7,7 @@ pub mod multiple2;
 pub mod single;
 pub mod vertical;
 pub mod wave;
+pub mod gpu;
 use crate::arg::*;
 use chrono::Utc;
 use rand::Rng;
@@ -74,6 +75,17 @@ pub fn rtm_run(cli: &MainArg) {
                 check_arg.onlydircheck,
                 check_arg.rmcheck,
             );
+        }
+
+        Mode::Gpu(gpu_arg) => {
+            let dir_name: String = process_tmpdir_name(&gpu_arg.tmpdir);
+            gpu::execute(
+                &dir_name,
+                &gpu_arg.message,
+                gpu_arg.gpunum,
+                &gpu_arg.gpusupport,
+                gpu_arg.time,
+                        );
         }
     }
 }
