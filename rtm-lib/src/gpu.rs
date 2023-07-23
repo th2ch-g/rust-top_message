@@ -42,9 +42,15 @@ fn cat_toml(dir_name: &str) {
 
 }
 
-
 fn cat_gpu_code(dir_name: &str, ) {
 
 }
 
+fn cat_fatbin(dir_name: &str, ) {
+
+}
+
+fn cat_cl(dir_name: &str) {
+
+}
 
