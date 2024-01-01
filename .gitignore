@@ -1,3 +1,4 @@
 /target
 rtm-mpi/target/
+rtm-lib/target/
 .DS_Store

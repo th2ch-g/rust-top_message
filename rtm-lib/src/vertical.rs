@@ -22,10 +22,10 @@ fn process_message_list(message: &str) -> Vec<String> {
         message_list.push(String::from(""));
     }
 
-    for i in 0..tmp.len() {
+    for t in &tmp {
         for j in 0..maxlen {
-            if j < tmp[i].len() {
-                message_list[j] += &tmp[i][j..j + 1];
+            if j < t.len() {
+                message_list[j] += &t[j..j + 1];
             } else {
                 message_list[j] += " ";
             }

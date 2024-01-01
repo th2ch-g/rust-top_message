@@ -1,6 +1,7 @@
 use std::env;
 use std::fs;
 use std::path;
+use std::path::Path;
 use std::process;
 use std::process::Command;
 
@@ -43,8 +44,7 @@ fn rustc_check() {
     Command::new("rustc")
         .arg("-V")
         .output()
-        .expect(&format!("\n[ERROR] rustc not found\n[ERROR] {} needs rustc\n[ERROR] Please check Rust environment or install Rust https://www.rust-lang.org/tools/install\n",
-                         env!("CARGO_PKG_NAME")));
+        .unwrap_or_else(|_| panic!("\n[ERROR] rustc not found\n[ERROR] {} needs rustc\n[ERROR] Please check Rust environment or install Rust https://www.rust-lang.org/tools/install\n", env!("CARGO_PKG_NAME")));
     println!("[CHECK] rustc seems to be installed");
 }
 
@@ -65,10 +65,10 @@ fn search_iddir() -> Vec<String> {
     }
 
     if !dirs.is_empty() {
-        for i in 0..dirs.len() {
+        for d in &dirs {
             println!(
                 "[CHECK] {} is seems to be directory created by {}",
-                dirs[i],
+                d,
                 env!("CARGO_PKG_NAME")
             );
         }
@@ -82,7 +82,7 @@ fn search_iddir() -> Vec<String> {
     dirs
 }
 
-fn search_id(path: &path::PathBuf) -> bool {
+fn search_id(path: &Path) -> bool {
     let files = path.read_dir().unwrap();
 
     for file in files {

@@ -92,8 +92,8 @@ fn change_default_tmpdir_name() -> String {
     let rand_num: u32 = rng.gen();
     format!(
         "{}_{}_{}",
-        Utc::now().format("/tmp/tmp_rtm_%Y%m%d%H%M%S").to_string(),
-        rand_num.to_string(),
+        Utc::now().format("/tmp/tmp_rtm_%Y%m%d%H%M%S"),
+        rand_num,
         process::id()
     )
 }

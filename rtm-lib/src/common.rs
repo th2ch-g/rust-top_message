@@ -16,8 +16,7 @@ pub fn compile(dir_name: &str, message: &str) {
         .arg("-o")
         .arg(&format!("{}/{}", dir_name, message))
         .output()
-        .expect(&format!("\n[ERROR] Failed to rustc compile\n[ERROR] {} needs rustc\n[ERROR] Please check Rust environment or install Rust https://www.rust-lang.org/tools/install\n",
-                         env!("CARGO_PKG_NAME")));
+        .unwrap_or_else(|_| panic!("\n[ERROR] Failed to rustc compile\n[ERROR] {} needs rustc\n[ERROR] Please check Rust environment or install Rust https://www.rust-lang.org/tools/install\n", env!("CARGO_PKG_NAME")));
 }
 
 pub fn compile2(dir_name: &str, subdir: &str, message: &str) {
@@ -26,8 +25,7 @@ pub fn compile2(dir_name: &str, subdir: &str, message: &str) {
         .arg("-o")
         .arg(&format!("{}/{}/{}", dir_name, "run", message))
         .output()
-        .expect(&format!("\n[ERROR] Failed to rustc compile\n[ERROR] {} needs rustc\n[ERROR] Please check Rust environment or install Rust https://www.rust-lang.org/tools/install\n",
-                         env!("CARGO_PKG_NAME")));
+        .unwrap_or_else(|_| panic!("\n[ERROR] Failed to rustc compile\n[ERROR] {} needs rustc\n[ERROR] Please check Rust environment or install Rust https://www.rust-lang.org/tools/install\n", env!("CARGO_PKG_NAME")));
 }
 
 pub fn record_current_dir() -> String {
@@ -136,7 +134,7 @@ fn main() {
 pub fn common_execute(dir_name: &str, message_list: Vec<String>, time: usize, single_bool: bool) {
     // data access for thread
     let dir_name_t = Arc::new(dir_name.to_string().clone());
-    let time_t = Arc::new(time.clone());
+    let time_t = Arc::new(time);
     let message_list_t = Arc::new(message_list.clone());
 
     // mkdir

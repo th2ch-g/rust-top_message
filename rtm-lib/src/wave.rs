@@ -38,8 +38,8 @@ pub fn execute(dir_name: &str, message: &str, thread: usize, length: usize) {
     cd(&format!("{}/{}", dir_name, "run"));
 
     // run
-    for j in 0..message_list.len() {
-        run(".", &message_list[j]);
+    for message in message_list {
+        run(".", &message);
     }
 
     // cd parent dir
