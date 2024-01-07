@@ -45,10 +45,11 @@
     - [Long mode](#long-mode)
     - [Vertical mode](#vertical-mode)
     - [Wave mode](#wave-mode)
+    - [Gpu mode](#gpu-mode)
     - [Check mode](#check-mode)
 
 ## Install
-~~~
+~~~shell
 cargo install --git https://github.com/th2ch-g/rust-top_message.git rtm
 ~~~
 
@@ -57,7 +58,7 @@ cargo install --git https://github.com/th2ch-g/rust-top_message.git rtm
     - rust-top_message requires Rust environment
 
 ## Install OpenMPI version
-~~~
+~~~shell
 cargo install --git https://github.com/th2ch-g/rust-top_message.git rtm_mpi
 ~~~
 
@@ -87,45 +88,63 @@ cargo install --git https://github.com/th2ch-g/rust-top_message.git rtm_mpi
     <img src="img/vertical.png" class="galleryItem" width=200px></img>
 </a>
 
+<a href=#gpu>
+    <img src="img/gpu.png" class="galleryItem" width=200px></img>
+</a>
+
 ## Quick start & Examples
 <a id="single"></a>
 ### Single mode
-~~~
+~~~shell
 rtm single -m hello_world -@ 4 -t 20 & top
 ~~~
 
 <a id="multiple"></a>
 ### Multiple mode
-~~~
+~~~shell
 rtm multiple -m hello_world -@ 4 -t 20 & top
 ~~~
 
 <a id="multiple2"></a>
 ### Multiple2 mode
-~~~
+~~~shell
 rtm multiple2 -m "hello_world1 hello_world2 hello_world3" -t 20 & top
 ~~~
 
 <a id="long"></a>
 ### Long mode
-~~~
+~~~shell
 rtm long -m Rust_is_the_greatest_and_best_programming_language_ever -t 20 & top
 ~~~
 
 <a id="vertical"></a>
 ### Vertical mode
-~~~
+~~~shell
 rtm vertical -m "ThankYou GoodLuck" -t 20 & top
 ~~~
 
 ### Wave mode
-~~~
+~~~shell
 rtm wave -m 123456789 -@ 4 & top
+~~~
+
+<a id="gpu"></a>
+### Gpu mode
+- [nvtop](https://github.com/Syllo/nvtop)
+- [nvitop](https://github.com/XuehaiPan/nvitop)
+- tested on NVIDIA RTX A6000, M1MacOS.
+~~~shell
+# nvidia-smi
+rtm gpu -m "RustGPU" & nvidia-smi
+# nvtop
+rtm gpu -m "RustGPU" & nvtop
+# nvitop
+rtm gpu -m "RustGPU" & nvitop
 ~~~
 
 ### Check mode
 - check if the directories created by rust-top_message remains in current directory
-~~~
+~~~shell
 $ rtm check --onlycheck
 [CHECK] rustc seems to be installed
 [CHECK] .tmp_20220731131724_487375867_68549 is seems to be directory created by rtm-lib
@@ -134,7 +153,7 @@ $ rtm check --onlycheck
 ~~~
 
 - check the directory created by rust-top_message && remove those directory
-~~~
+~~~shell
 $ rtm check --rmcheck
 [CHECK] rustc seems to be installed
 [CHECK] .tmp_20220731131724_487375867_68549 is seems to be directory created by rtm-lib

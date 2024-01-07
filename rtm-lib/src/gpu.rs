@@ -17,6 +17,8 @@ pub fn execute(dir_name: &str, message: &str, time: usize) {
 
     gen_shader_wgsl(dir_name);
 
+    cat_id(dir_name);
+
     let cwd = record_current_dir();
 
     cd(dir_name);
