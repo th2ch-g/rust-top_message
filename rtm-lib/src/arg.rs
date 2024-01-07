@@ -33,8 +33,12 @@ pub enum Mode {
     #[clap(display_order = 6)]
     Wave(WaveArg),
 
-    /// check if top_message can be executed normally
+    /// one message on one nvtop/nvitop
     #[clap(display_order = 7)]
+    Gpu(GpuArg),
+
+    /// check if top_message can be executed normally
+    #[clap(display_order = 8)]
     Check(CheckArg),
 }
 
@@ -303,6 +307,51 @@ pub struct CheckArg {
     )]
     pub rmcheck: bool,
 }
+
+
+#[derive(Debug, clap::Args, Clone)]
+#[clap(arg_required_else_help = true, version)]
+pub struct GpuArg {
+    #[clap(
+        short,
+        long,
+        value_name = "STR",
+        help = "message that appears on top",
+        display_order = 1
+    )]
+    pub message: String,
+
+    // #[clap(
+    //     short = '@',
+    //     long,
+    //     value_name = "INT",
+    //     default_value = "1",
+    //     help = "thread number",
+    //     display_order = 2
+    // )]
+    // pub thread: usize,
+
+    #[clap(
+        short,
+        long,
+        value_name = "INT",
+        default_value = "10",
+        help = "display time(s)",
+        display_order = 3
+    )]
+    pub time: usize,
+
+    #[clap(
+        long = "tmpdir",
+        value_name = "STR",
+        default_value = "/tmp/tmp_rtm_(date_randomnumber_pid)",
+        help = "tmp directory name",
+        display_order = 4
+    )]
+    pub tmpdir: String,
+}
+
+
 
 pub fn arg() -> MainArg {
     MainArg::parse()
