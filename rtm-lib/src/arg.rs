@@ -36,10 +36,6 @@ pub enum Mode {
     /// one message on one nvtop/nvitop
     #[clap(display_order = 7)]
     Gpu(GpuArg),
-
-    /// check if top_message can be executed normally
-    #[clap(display_order = 8)]
-    Check(CheckArg),
 }
 
 #[derive(Debug, clap::Args, Clone)]
@@ -275,39 +271,6 @@ pub struct WaveArg {
     )]
     pub tmpdir: String,
 }
-
-#[derive(Debug, clap::Args, Clone)]
-#[clap(arg_required_else_help = true, version)]
-pub struct CheckArg {
-    #[clap(
-        long,
-        help = "check that top_message can be executed normally & tmp directory that top_message created",
-        display_order = 1
-    )]
-    pub onlycheck: bool,
-
-    #[clap(
-        long,
-        help = "check that top_message can be executed normally",
-        display_order = 2
-    )]
-    pub onlyrustcheck: bool,
-
-    #[clap(
-        long,
-        help = "check tmp directory that top_message created",
-        display_order = 3
-    )]
-    pub onlydircheck: bool,
-
-    #[clap(
-        long,
-        help = "check that top_message can be executed normally & \nREMOVE tmp dirctory that top_message created",
-        display_order = 4
-    )]
-    pub rmcheck: bool,
-}
-
 
 #[derive(Debug, clap::Args, Clone)]
 #[clap(arg_required_else_help = true, version)]

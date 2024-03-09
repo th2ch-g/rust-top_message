@@ -1,15 +1,12 @@
 use crate::common::*;
 
-use std::sync::Arc;
-use std::thread;
-
 pub fn execute(dir_name: &str, message: &str, thread: usize, length: usize) {
     // make message_list
     let message_list = process_message_list(message, length);
 
     // data access for thread
-    let dir_name_t = Arc::new(dir_name.to_string().clone());
-    let message_list_t = Arc::new(message_list.clone());
+    let dir_name_t = std::sync::Arc::new(dir_name.to_string().clone());
+    let message_list_t = std::sync::Arc::new(message_list.clone());
 
     // mkdir
     mkdir(dir_name);
@@ -21,10 +18,10 @@ pub fn execute(dir_name: &str, message: &str, thread: usize, length: usize) {
     let mut thrs = Vec::new();
 
     for i in 0..message_list.len() {
-        let dir_name_r = Arc::clone(&dir_name_t);
-        let message_list_r = Arc::clone(&message_list_t);
+        let dir_name_r = std::sync::Arc::clone(&dir_name_t);
+        let message_list_r = std::sync::Arc::clone(&message_list_t);
 
-        thrs.push(thread::spawn(move || {
+        thrs.push(std::thread::spawn(move || {
             mkdir(&format!("{}/{}", dir_name_r, i));
             cat(&format!("{}/{}", dir_name_r, i), thread, 2);
             compile2(&dir_name_r, &i.to_string(), &message_list_r[i]);

@@ -1,7 +1,5 @@
 use crate::common::*;
 
-use std::cmp::Reverse;
-
 pub fn execute(dir_name: &str, message: &str, time: usize) {
     // message to list
     let message_list: Vec<String> = process_message_list(message);
@@ -14,7 +12,7 @@ fn process_message_list(message: &str) -> Vec<String> {
 
     let mut tmp: Vec<&str> = message.split_whitespace().collect();
 
-    tmp.sort_by_key(|&x| Reverse(x.len()));
+    tmp.sort_by_key(|&x| std::cmp::Reverse(x.len()));
 
     let maxlen = tmp[0].len();
 

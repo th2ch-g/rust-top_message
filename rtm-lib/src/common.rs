@@ -1,89 +1,75 @@
-use std::env;
-use std::fs;
-use std::fs::File;
-
-use std::io::Write;
-use std::path;
-use std::process;
-
-use std::process::Command;
-use std::sync::Arc;
-use std::thread;
+use std::io::prelude::*;
 
 pub fn compile(dir_name: &str, message: &str) {
-    Command::new("rustc")
+    std::process::Command::new("rustc")
         .arg(&format!("{}/{}", dir_name, "ms.rs"))
         .arg("-o")
         .arg(&format!("{}/{}", dir_name, message))
         .output()
-        .unwrap_or_else(|_| panic!("\n[ERROR] Failed to rustc compile\n[ERROR] {} needs rustc\n[ERROR] Please check Rust environment or install Rust https://www.rust-lang.org/tools/install\n", env!("CARGO_PKG_NAME")));
+        .expect("failed to compile");
 }
 
 pub fn compile2(dir_name: &str, subdir: &str, message: &str) {
-    Command::new("rustc")
+    std::process::Command::new("rustc")
         .arg(&format!("{}/{}/{}", dir_name, subdir, "ms.rs"))
         .arg("-o")
         .arg(&format!("{}/{}/{}", dir_name, "run", message))
         .output()
-        .unwrap_or_else(|_| panic!("\n[ERROR] Failed to rustc compile\n[ERROR] {} needs rustc\n[ERROR] Please check Rust environment or install Rust https://www.rust-lang.org/tools/install\n", env!("CARGO_PKG_NAME")));
+        .expect("failed to compile2");
 }
 
 pub fn record_current_dir() -> String {
-    let current_dir = path::PathBuf::from("./");
-    let current_dir = fs::canonicalize(current_dir);
+    let current_dir = std::path::PathBuf::from("./");
+    let current_dir = std::fs::canonicalize(current_dir);
     match current_dir {
         Ok(s) => s.to_string_lossy().to_string(),
         Err(_) => {
-            println!("[ERROR] Failed to record current directory");
-            String::from("Falied to record current directory")
+            log::error!("failed to record current directory");
+            String::from("err")
         }
     }
 }
 
 pub fn cd(dir_name: &str) {
-    let cd_result = env::set_current_dir(dir_name);
+    let cd_result = std::env::set_current_dir(dir_name);
     match cd_result {
         Ok(_) => (),
         Err(_) => {
-            println!(
-                "[ERROR] Cannot cd directory created by {}",
-                env!("CARGO_PKG_NAME")
-            );
+            log::error!("failed to cd");
         }
     }
 }
 
 pub fn run(dir_name: &str, message: &str) {
-    Command::new(format!("{}/{}", dir_name, message))
+    std::process::Command::new(format!("{}/{}", dir_name, message))
         .output()
-        .expect("\n[ERROR] Failed to run");
+        .expect("failed to run");
 }
 
 pub fn rmdir(dir_name: &str) {
-    let rmdir_result = fs::remove_dir_all(dir_name);
+    let rmdir_result = std::fs::remove_dir_all(dir_name);
     match rmdir_result {
         Ok(_) => (),
         Err(_) => {
-            println!("[ERROR] Failed to remove directory");
-            println!("[ERROR] But continue");
+            log::warn!("failed to rmdir but continue");
         }
     }
 }
 
 pub fn mkdir(dir_name: &str) {
-    let mkdir_result = fs::create_dir(dir_name);
+    let mkdir_result = std::fs::create_dir(dir_name);
     match mkdir_result {
         Ok(_) => (),
         Err(_) => {
-            println!("[ERROR] Failed to create directory");
-            println!("[ERROR] Check for directories with the same name");
-            process::exit(1);
+            log::error!("failed to create directory");
+            log::error!("check authority");
+            std::process::exit(1);
         }
     }
 }
 
 pub fn cat_id(dir_name: &str) {
-    let mut file = File::create(format!(
+    let mut file = std::fs::File::create(format!(
         "{}/{}-{}",
         dir_name,
         env!("CARGO_PKG_NAME"),
@@ -95,7 +81,7 @@ pub fn cat_id(dir_name: &str) {
 }
 
 pub fn cat(dir_name: &str, thread: usize, time: usize) {
-    let mut file = File::create(format!("{}/{}", dir_name, "ms.rs")).unwrap();
+    let mut file = std::fs::File::create(format!("{}/{}", dir_name, "ms.rs")).unwrap();
 
     file.write_all(
         b"
@@ -133,9 +119,9 @@ fn main() {
 
 pub fn common_execute(dir_name: &str, message_list: Vec<String>, time: usize, single_bool: bool) {
     // data access for thread
-    let dir_name_t = Arc::new(dir_name.to_string().clone());
-    let time_t = Arc::new(time);
-    let message_list_t = Arc::new(message_list.clone());
+    let dir_name_t = std::sync::Arc::new(dir_name.to_string().clone());
+    let time_t = std::sync::Arc::new(time);
+    let message_list_t = std::sync::Arc::new(message_list.clone());
 
     // mkdir
     mkdir(dir_name);
@@ -147,17 +133,17 @@ pub fn common_execute(dir_name: &str, message_list: Vec<String>, time: usize, si
     let mut thrs = Vec::new();
     let mut count = message_list.len();
     for i in 0..message_list.len() {
-        let dir_name_r = Arc::clone(&dir_name_t);
-        let time_r = Arc::clone(&time_t);
-        let message_list_r = Arc::clone(&message_list_t);
+        let dir_name_r = std::sync::Arc::clone(&dir_name_t);
+        let time_r = std::sync::Arc::clone(&time_t);
+        let message_list_r = std::sync::Arc::clone(&message_list_t);
         if single_bool {
-            thrs.push(thread::spawn(move || {
+            thrs.push(std::thread::spawn(move || {
                 mkdir(&format!("{}/{}", dir_name_r, i));
                 cat(&format!("{}/{}", dir_name_r, i), 1, *time_r);
                 compile2(&dir_name_r, &i.to_string(), &message_list_r[i]);
             }));
         } else {
-            thrs.push(thread::spawn(move || {
+            thrs.push(std::thread::spawn(move || {
                 mkdir(&format!("{}/{}", dir_name_r, i));
                 cat(&format!("{}/{}", dir_name_r, i), count, *time_r);
                 compile2(&dir_name_r, &i.to_string(), &message_list_r[i]);
@@ -174,8 +160,8 @@ pub fn common_execute(dir_name: &str, message_list: Vec<String>, time: usize, si
     // run
     let mut thrs = Vec::new();
     for i in 0..message_list.len() {
-        let message_list_r = Arc::clone(&message_list_t);
-        thrs.push(thread::spawn(move || {
+        let message_list_r = std::sync::Arc::clone(&message_list_t);
+        thrs.push(std::thread::spawn(move || {
             run(".", &message_list_r[i]);
         }));
     }

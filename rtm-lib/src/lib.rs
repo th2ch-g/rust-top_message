@@ -1,5 +1,4 @@
 pub mod arg;
-pub mod check;
 pub mod common;
 pub mod long;
 pub mod multiple;
@@ -74,16 +73,6 @@ pub fn rtm_run(cli: &MainArg) {
                 &dir_name,
                 &gpu_arg.message,
                 gpu_arg.time,
-            );
-        }
-
-        // check mode
-        Mode::Check(check_arg) => {
-            check::execute(
-                check_arg.onlycheck,
-                check_arg.onlyrustcheck,
-                check_arg.onlydircheck,
-                check_arg.rmcheck,
             );
         }
     }

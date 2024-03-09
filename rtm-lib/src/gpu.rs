@@ -1,11 +1,9 @@
 use crate::common::*;
-use std::fs::File;
-use std::io::Write;
-use std::process::Command;
+use std::io::prelude::*;
 
 pub fn execute(dir_name: &str, message: &str, time: usize) {
 
-    println!("[INFO] GPU checking...");
+    log::info!("GPU checking...");
     env_logger::init();
     pollster::block_on(check_gpu());
 
@@ -23,11 +21,11 @@ pub fn execute(dir_name: &str, message: &str, time: usize) {
 
     cd(dir_name);
 
-    println!("[INFO] Compiling...");
+    log::info!("Compiling...");
 
     compile_by_cargo();
 
-    println!("[INFO] Compile done!");
+    log::info!("Compile done!");
 
     cd("./target/debug/");
 
@@ -54,11 +52,11 @@ async fn check_gpu() {
         None
         )
         .await
-        .expect("[ERROR] GPU is not available");
+        .expect("GPU is not available");
 }
 
 fn gen_main_rs(dir_name: &str, time: usize) {
-    let mut file = File::create(format!("{}/main.rs", dir_name)).unwrap();
+    let mut file = std::fs::File::create(format!("{}/main.rs", dir_name)).unwrap();
     file.write_all(format!("const TIME: u64 = {};", time).as_bytes()).unwrap();
     file.write_all(b"
 fn main() {
@@ -146,7 +144,7 @@ impl State {
 }
 
 fn gen_cargo_toml(dir_name: &str, message: &str) {
-    let mut file = File::create(format!("{}/Cargo.toml", dir_name)).unwrap();
+    let mut file = std::fs::File::create(format!("{}/Cargo.toml", dir_name)).unwrap();
     file.write_all(format!("
 [package]
 name = \"rtm_gpu\"
@@ -165,7 +163,7 @@ path = \"main.rs\"
 }
 
 fn gen_shader_wgsl(dir_name: &str) {
-    let mut file = File::create(format!("{}/shader.wgsl", dir_name)).unwrap();
+    let mut file = std::fs::File::create(format!("{}/shader.wgsl", dir_name)).unwrap();
     file.write_all(b"
 @workgroup_size(1)
 @compute
@@ -181,6 +179,6 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
 }
 
 fn compile_by_cargo() {
-    Command::new("cargo").arg("build").output().expect("\n[ERROR] Failed to cargo build");
+    std::process::Command::new("cargo").arg("build").output().expect("failed to cargo build");
 }
 

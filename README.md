@@ -46,7 +46,6 @@
     - [Vertical mode](#vertical-mode)
     - [Wave mode](#wave-mode)
     - [Gpu mode](#gpu-mode)
-    - [Check mode](#check-mode)
 
 ## Install
 ~~~shell
@@ -140,24 +139,5 @@ rtm gpu -m "RustGPU" & nvidia-smi
 rtm gpu -m "RustGPU" & nvtop
 # nvitop
 rtm gpu -m "RustGPU" & nvitop
-~~~
-
-### Check mode
-- check if the directories created by rust-top_message remains in current directory
-~~~shell
-$ rtm check --onlycheck
-[CHECK] rustc seems to be installed
-[CHECK] .tmp_20220731131724_487375867_68549 is seems to be directory created by rtm-lib
-[CHECK] .tmp_20220731131730_903474437_68694 is seems to be directory created by rtm-lib
-[CHECK] If you want to delete these directory, please execute --rmcheck option
-~~~
-
-- check the directory created by rust-top_message && remove those directory
-~~~shell
-$ rtm check --rmcheck
-[CHECK] rustc seems to be installed
-[CHECK] .tmp_20220731131724_487375867_68549 is seems to be directory created by rtm-lib
-[CHECK] .tmp_20220731131730_903474437_68694 is seems to be directory created by rtm-lib
-[REMOVED] All directories that rtm-lib may have created were successfully deleted
 ~~~
 
