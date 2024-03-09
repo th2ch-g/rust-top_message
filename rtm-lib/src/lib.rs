@@ -8,9 +8,7 @@ pub mod vertical;
 pub mod wave;
 pub mod gpu;
 use crate::arg::*;
-use chrono::Utc;
-use rand::Rng;
-use std::process;
+use rand::prelude::*;
 
 pub fn rtm_run(cli: &MainArg) {
     // process by mode
@@ -92,8 +90,8 @@ fn change_default_tmpdir_name() -> String {
     let rand_num: u32 = rng.gen();
     format!(
         "{}_{}_{}",
-        Utc::now().format("/tmp/tmp_rtm_%Y%m%d%H%M%S"),
+        chrono::Utc::now().format("/tmp/tmp_rtm_%Y%m%d%H%M%S"),
         rand_num,
-        process::id()
+        std::process::id()
     )
 }
