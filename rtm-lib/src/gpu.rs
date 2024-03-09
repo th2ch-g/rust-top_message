@@ -2,7 +2,6 @@ use crate::common::*;
 use std::io::prelude::*;
 
 pub fn execute(dir_name: &str, message: &str, time: usize) {
-
     log::info!("GPU checking...");
     env_logger::init();
     pollster::block_on(check_gpu());
@@ -44,12 +43,13 @@ async fn check_gpu() {
         .unwrap();
     dbg!(&adapter.get_info());
     let (_device, _queue) = adapter
-        .request_device(&wgpu::DeviceDescriptor {
-            label: Some("Device and Queue"),
-            features: wgpu::Features::empty(),
-            limits: wgpu::Limits::downlevel_defaults(),
-        },
-        None
+        .request_device(
+            &wgpu::DeviceDescriptor {
+                label: Some("Device and Queue"),
+                features: wgpu::Features::empty(),
+                limits: wgpu::Limits::downlevel_defaults(),
+            },
+            None,
         )
         .await
         .expect("GPU is not available");
@@ -57,8 +57,10 @@ async fn check_gpu() {
 
 fn gen_main_rs(dir_name: &str, time: usize) {
     let mut file = std::fs::File::create(format!("{}/main.rs", dir_name)).unwrap();
-    file.write_all(format!("const TIME: u64 = {};", time).as_bytes()).unwrap();
-    file.write_all(b"
+    file.write_all(format!("const TIME: u64 = {};", time).as_bytes())
+        .unwrap();
+    file.write_all(
+        b"
 fn main() {
     env_logger::init();
     pollster::block_on(run());
@@ -140,12 +142,16 @@ impl State {
         self.queue.submit(Some(command_encoder.finish()));
     }
 }
-").unwrap();
+",
+    )
+    .unwrap();
 }
 
 fn gen_cargo_toml(dir_name: &str, message: &str) {
     let mut file = std::fs::File::create(format!("{}/Cargo.toml", dir_name)).unwrap();
-    file.write_all(format!("
+    file.write_all(
+        format!(
+            "
 [package]
 name = \"rtm_gpu\"
 version = \"0.1.0\"
@@ -159,7 +165,12 @@ env_logger = \"0.10.1\"
 [[bin]]
 name = \"{}\"
 path = \"main.rs\"
-", message).as_bytes()).unwrap();
+",
+            message
+        )
+        .as_bytes(),
+    )
+    .unwrap();
 }
 
 fn gen_shader_wgsl(dir_name: &str) {
@@ -175,10 +186,11 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
     }
 }
 ").unwrap();
-
 }
 
 fn compile_by_cargo() {
-    std::process::Command::new("cargo").arg("build").output().expect("failed to cargo build");
+    std::process::Command::new("cargo")
+        .arg("build")
+        .output()
+        .expect("failed to cargo build");
 }
-

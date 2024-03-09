@@ -1,12 +1,12 @@
 pub mod arg;
 pub mod common;
+pub mod gpu;
 pub mod long;
 pub mod multiple;
 pub mod multiple2;
 pub mod single;
 pub mod vertical;
 pub mod wave;
-pub mod gpu;
 use crate::arg::*;
 use rand::prelude::*;
 
@@ -67,11 +67,7 @@ pub fn rtm_run(cli: &MainArg) {
         // gpu
         Mode::Gpu(gpu_arg) => {
             let dir_name: String = process_tmpdir_name(&gpu_arg.tmpdir);
-            gpu::execute(
-                &dir_name,
-                &gpu_arg.message,
-                gpu_arg.time,
-            );
+            gpu::execute(&dir_name, &gpu_arg.message, gpu_arg.time);
         }
     }
 }

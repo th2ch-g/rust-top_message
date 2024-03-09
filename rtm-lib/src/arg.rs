@@ -293,7 +293,6 @@ pub struct GpuArg {
     //     display_order = 2
     // )]
     // pub thread: usize,
-
     #[clap(
         short,
         long,
@@ -313,8 +312,6 @@ pub struct GpuArg {
     )]
     pub tmpdir: String,
 }
-
-
 
 pub fn arg() -> MainArg {
     MainArg::parse()
