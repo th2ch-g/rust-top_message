@@ -1,6 +1,6 @@
-use rtm::rtm_run;
-use rtm::arg::*;
 use mpi::traits::*;
+use rtm::arg::*;
+use rtm::rtm_run;
 use std::env;
 
 fn main() {

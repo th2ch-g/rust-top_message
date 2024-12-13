@@ -25,7 +25,7 @@ rtm-mpi = { path = "rtm-mpi/" }
 clap = { version = "3.2.22", features = ["derive"]  }
 chrono = "0.4.22"
 rand = "0.8.5"
-wgpu = "0.18"
+wgpu = { git = "https://github.com/gfx-rs/wgpu.git", tag = "v0.18.0" }
 pollster = "0.3.0"
 env_logger = "0.10.1"
 log = "0.4.21"
