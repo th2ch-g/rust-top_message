@@ -1,0 +1,13 @@
+[package]
+name = "rtm_gpu"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+wgpu = { git = "https://github.com/gfx-rs/wgpu.git", tag = "v0.18.0" }
+pollster = "0.3.0"
+env_logger = "0.10.1"
+
+[[bin]]
+name = "{ name }"
+path = "main.rs"

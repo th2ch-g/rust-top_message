@@ -59,3 +59,4 @@ jobs:
         run: cargo clippy --version
       - name: lint
         run: cargo clippy
+        working-directory: ./rtm

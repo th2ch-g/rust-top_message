@@ -2,18 +2,18 @@ use std::io::prelude::*;
 
 pub fn compile(dir_name: &str, message: &str) {
     std::process::Command::new("rustc")
-        .arg(&format!("{}/{}", dir_name, "ms.rs"))
+        .arg(format!("{}/{}", dir_name, "ms.rs"))
         .arg("-o")
-        .arg(&format!("{}/{}", dir_name, message))
+        .arg(format!("{}/{}", dir_name, message))
         .output()
         .expect("failed to compile");
 }
 
 pub fn compile2(dir_name: &str, subdir: &str, message: &str) {
     std::process::Command::new("rustc")
-        .arg(&format!("{}/{}/{}", dir_name, subdir, "ms.rs"))
+        .arg(format!("{}/{}/{}", dir_name, subdir, "ms.rs"))
         .arg("-o")
-        .arg(&format!("{}/{}/{}", dir_name, "run", message))
+        .arg(format!("{}/{}/{}", dir_name, "run", message))
         .output()
         .expect("failed to compile2");
 }
@@ -32,6 +32,7 @@ pub fn record_current_dir() -> String {
 
 pub fn cd(dir_name: &str) {
     let cd_result = std::env::set_current_dir(dir_name);
+    dbg!(&cd_result);
     match cd_result {
         Ok(_) => (),
         Err(_) => {
@@ -69,50 +70,20 @@ pub fn mkdir(dir_name: &str) {
 }
 
 pub fn cat_id(dir_name: &str) {
-    let mut file = std::fs::File::create(format!(
-        "{}/{}-{}",
-        dir_name,
-        env!("CARGO_PKG_NAME"),
-        "idfile"
-    ))
-    .unwrap();
-    file.write_all(format!("This file is {} dedicated id file", env!("CARGO_PKG_NAME")).as_bytes())
-        .unwrap();
+    let template = include_str!("template/rtm.idfile");
+    let output_path = format!("{}/rtm.idfile", dir_name);
+    let mut output_file = std::fs::File::create(&output_path).unwrap();
+    output_file.write_all(template.as_bytes()).unwrap();
 }
 
 pub fn cat(dir_name: &str, thread: usize, time: usize) {
-    let mut file = std::fs::File::create(format!("{}/{}", dir_name, "ms.rs")).unwrap();
-
-    file.write_all(
-        b"
-use std::thread;use std::time::Instant;use std::sync::Arc;
-    ",
-    )
-    .unwrap();
-    file.write_all(
-        format!(
-            "const THREAD: usize = {};const TIME: u64 = {};",
-            thread, time
-        )
-        .as_bytes(),
-    )
-    .unwrap();
-    file.write_all(
-        b"
-fn main() {
-    let start = Arc::new(Instant::now());
-    let mut thrs = Vec::new();
-    for _ in 0..THREAD {
-        let start = Arc::clone(&start);
-        thrs.push(thread::spawn(move || {
-            loop { if start.elapsed().as_secs() >= TIME { break } }
-        }));
-    }
-    thrs.into_iter().for_each(|h| h.join().unwrap());
-}
-                   ",
-    )
-    .unwrap();
+    let template = include_str!("template/ms.rs");
+    let filled_template = template
+        .replace("{ thread }", &thread.to_string())
+        .replace("{ time }", &time.to_string());
+    let output_path = format!("{}/ms.rs", dir_name);
+    let mut output_file = std::fs::File::create(&output_path).unwrap();
+    output_file.write_all(filled_template.as_bytes()).unwrap();
 }
 
 //======================================================================

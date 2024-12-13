@@ -1,20 +1,38 @@
-[package]
+[workspace]
+resolver = "2"
+members = [
+    "rtm",
+    "rtm-mpi",
+]
+
+default-members = [
+    "rtm",
+    "rtm-mpi"
+]
+
+[workspace.package]
 name = "rtm"
-version = "2.1.0"
-authors = ["th 2023"]
+version = "2.2.0"
 edition = "2021"
+authors = ["th"]
 license = "MIT"
 repository = "https://github.com/th2ch-g/rust-top_message"
 description = "rust-top_message: A tool which display message on top"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
-rtm-lib = { path = "./rtm-lib/" }
-
-[dev-dependencies]
+[workspace.dependencies]
+rtm = { path = "rtm/" }
+rtm-mpi = { path = "rtm-mpi/" }
+clap = { version = "3.2.22", features = ["derive"]  }
+chrono = "0.4.22"
+rand = "0.8.5"
+wgpu = { git = "https://github.com/gfx-rs/wgpu.git", tag = "v0.18.0" }
+pollster = "0.3.0"
+env_logger = "0.10.1"
+log = "0.4.21"
+mpi = "0.6.0"
 
 [profile.release]
+opt-level = 3
 lto = true
 strip = true
 

@@ -49,7 +49,7 @@
 
 ## Install
 ~~~shell
-cargo install --git https://github.com/th2ch-g/rust-top_message.git rtm
+cargo install --git https://github.com/th2ch-g/rust-top_message.git rtm --locked
 ~~~
 
 ### Dependencies
@@ -58,7 +58,7 @@ cargo install --git https://github.com/th2ch-g/rust-top_message.git rtm
 
 ## Install OpenMPI version
 ~~~shell
-cargo install --git https://github.com/th2ch-g/rust-top_message.git rtm_mpi
+cargo install --git https://github.com/th2ch-g/rust-top_message.git rtm_mpi --locked
 ~~~
 
 ### Dependencies
