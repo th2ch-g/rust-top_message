@@ -32,7 +32,6 @@ pub fn record_current_dir() -> String {
 
 pub fn cd(dir_name: &str) {
     let cd_result = std::env::set_current_dir(dir_name);
-    dbg!(&cd_result);
     match cd_result {
         Ok(_) => (),
         Err(_) => {

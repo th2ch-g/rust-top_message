@@ -24,7 +24,7 @@ jobs:
       - name: test long
         run: cargo run -r --bin rtm long -m "aaabbb" -t 3 -l 3 --tmpdir ./long
       - name: test vertical
-        run: cargo run -r --bin rtm vertical -m "aaa bbb" -t 3 --tmpdir ./vertical
+        run: cargo run -r --bin rtm vertical -m "aa" -t 3 --tmpdir ./vertical
       - name: test wave
         run: cargo run -r --bin rtm wave -m "aaabbb" -@ 1 -l 3 --tmpdir ./wave
       - name: test gpu, but with cpu
