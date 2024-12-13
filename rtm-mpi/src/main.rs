@@ -1,5 +1,5 @@
-use rtm_lib::rtm_run;
-use rtm_lib::arg::*;
+use rtm_core::rtm_run;
+use rtm_core::arg::*;
 use mpi::traits::*;
 use std::env;
 
@@ -16,5 +16,3 @@ fn main() {
         println!("{} done", env!("CARGO_PKG_NAME"));
     }
 }
-
-
