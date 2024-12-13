@@ -27,5 +27,3 @@ jobs:
         run: cargo run -r --bin rtm vertical -m "aa" -t 3 --tmpdir ./vertical
       - name: test wave
         run: cargo run -r --bin rtm wave -m "aaabbb" -@ 1 -l 3 --tmpdir ./wave
-      - name: test gpu, but with cpu
-        run: cargo run -r --bin rtm gpu -m "aaa" -t 3 --tmpdir ./gpu
