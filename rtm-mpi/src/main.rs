@@ -1,5 +1,5 @@
-use rtm_core::rtm_run;
-use rtm_core::arg::*;
+use rtm::rtm_run;
+use rtm::arg::*;
 use mpi::traits::*;
 use std::env;
 

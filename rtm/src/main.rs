@@ -1,5 +1,5 @@
-use rtm_core::arg::*;
-use rtm_core::rtm_run;
+use rtm::arg::*;
+use rtm::rtm_run;
 
 fn main() {
     let cli: MainArg = arg();

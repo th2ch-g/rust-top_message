@@ -1,12 +1,12 @@
 [workspace]
 resolver = "2"
 members = [
-    "rtm-core",
+    "rtm",
     "rtm-mpi",
 ]
 
 default-members = [
-    "rtm-core",
+    "rtm",
     "rtm-mpi"
 ]
 
@@ -20,7 +20,7 @@ repository = "https://github.com/th2ch-g/rust-top_message"
 description = "rust-top_message: A tool which display message on top"
 
 [workspace.dependencies]
-rtm-core = { path = "rtm-core/" }
+rtm = { path = "rtm/" }
 rtm-mpi = { path = "rtm-mpi/" }
 clap = { version = "3.2.22", features = ["derive"]  }
 chrono = "0.4.22"
