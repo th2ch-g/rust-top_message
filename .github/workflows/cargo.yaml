@@ -20,7 +20,7 @@ jobs:
       - name: cargo version
         run: cargo --version
       - name: build
-        run: cargo build --release
+        run: cargo build -r --bin rtm
 
   format:
     name: format
