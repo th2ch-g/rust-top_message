@@ -134,6 +134,8 @@ pub struct Multiple2Arg {
         help = "message that appears on top\n[CAUTION] number of thread used is automatically determined",
         value_parser,
         required = true,
+        value_delimiter = ' ',
+        num_args = 1..,
         display_order = 1
     )]
     pub message: Vec<String>,
@@ -211,6 +213,8 @@ pub struct VerticalArg {
         help = "message that appears on top\n[CAUTION] number of thread used is automatically determined",
         value_parser,
         required = true,
+        value_delimiter = ' ',
+        num_args = 1..,
         display_order = 1
     )]
     pub message: Vec<String>,
