@@ -65,7 +65,7 @@ fn gen_main_rs(dir_name: &str, time: usize) {
 
 fn gen_cargo_toml(dir_name: &str, message: &str) {
     let template = include_str!("template/gpu/Cargo.toml");
-    let filled_template = template.replace("{ name }", &message.to_string());
+    let filled_template = template.replace("{ name }", message);
     let output_path = format!("{}/Cargo.toml", dir_name);
     let mut output_file = std::fs::File::create(&output_path).unwrap();
     output_file.write_all(filled_template.as_bytes()).unwrap();

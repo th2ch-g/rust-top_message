@@ -87,11 +87,11 @@ pub fn cat(dir_name: &str, thread: usize, time: usize) {
 
 //======================================================================
 
-pub fn common_execute(dir_name: &str, message_list: Vec<String>, time: usize, single_bool: bool) {
+pub fn common_execute(dir_name: &str, message_list: &[String], time: usize, single_bool: bool) {
     // data access for thread
     let dir_name_t = std::sync::Arc::new(dir_name.to_string().clone());
     let time_t = std::sync::Arc::new(time);
-    let message_list_t = std::sync::Arc::new(message_list.clone());
+    let message_list_t = std::sync::Arc::new(message_list.to_owned());
 
     // mkdir
     mkdir(dir_name);

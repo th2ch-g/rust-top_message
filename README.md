@@ -58,7 +58,7 @@ cargo install --git https://github.com/th2ch-g/rust-top_message.git rtm --locked
 
 ## Install OpenMPI version
 ~~~shell
-cargo install --git https://github.com/th2ch-g/rust-top_message.git rtm_mpi --locked
+cargo install --git https://github.com/th2ch-g/rust-top_message.git rtm-mpi --locked
 ~~~
 
 ### Dependencies
@@ -107,7 +107,7 @@ rtm multiple -m hello_world -@ 4 -t 20 & top
 <a id="multiple2"></a>
 ### Multiple2 mode
 ~~~shell
-rtm multiple2 -m "hello_world1 hello_world2 hello_world3" -t 20 & top
+rtm multiple2 -m "hello_world1" "hello_world2" "hello_world3" -t 20 & top
 ~~~
 
 <a id="long"></a>
@@ -119,7 +119,7 @@ rtm long -m Rust_is_the_greatest_and_best_programming_language_ever -t 20 & top
 <a id="vertical"></a>
 ### Vertical mode
 ~~~shell
-rtm vertical -m "ThankYou GoodLuck" -t 20 & top
+rtm vertical -m "ThankYou" "GoodLuck" -t 20 & top
 ~~~
 
 ### Wave mode

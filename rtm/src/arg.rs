@@ -46,6 +46,7 @@ pub struct SingleArg {
         long,
         value_name = "STR",
         help = "message that appears on top",
+        required = true,
         display_order = 1
     )]
     pub message: String,
@@ -88,6 +89,7 @@ pub struct MultipleArg {
         long,
         value_name = "STR",
         help = "message that appears on top",
+        required = true,
         display_order = 1
     )]
     pub message: String,
@@ -128,12 +130,13 @@ pub struct Multiple2Arg {
     #[clap(
         short,
         long,
-        value_name = "\"STR STR STR ...\"",
-        help = "message that appears on top\n[CAUTION] If more than one messge, \"\" or \'\' is necessary\n[CAUTION] number of thread used is automatically determined",
+        value_name = "STR STR STR ... STR",
+        help = "message that appears on top\n[CAUTION] number of thread used is automatically determined",
         value_parser,
+        required = true,
         display_order = 1
     )]
-    pub message: String,
+    pub message: Vec<String>,
 
     #[clap(
         short,
@@ -162,7 +165,8 @@ pub struct LongArg {
         short,
         long,
         value_name = "STR",
-        help = "one long message that appears on top\n[CAUTION] number of thread used is automatically determined",
+        help = "one long message that appears on top",
+        required = true,
         display_order = 1
     )]
     pub message: String,
@@ -203,12 +207,13 @@ pub struct VerticalArg {
     #[clap(
         short,
         long,
-        value_name = "\"STR STR STR ...\"",
-        help = "message that appears on top\n[CAUTION] If more than one messge, \"\" or \'\' is necessary\n[CAUTION] number of thread used is automatically determined",
+        value_name = "STR STR STR ... STR",
+        help = "message that appears on top\n[CAUTION] number of thread used is automatically determined",
         value_parser,
+        required = true,
         display_order = 1
     )]
-    pub message: String,
+    pub message: Vec<String>,
 
     #[clap(
         short,
@@ -238,6 +243,7 @@ pub struct WaveArg {
         long,
         value_name = "STR",
         help = "one message on one top like electric bulletin board\n[CAUTION] execute time is automatically determined",
+        required = true,
         display_order = 1
     )]
     pub message: String,
@@ -280,6 +286,7 @@ pub struct GpuArg {
         long,
         value_name = "STR",
         help = "message that appears on top",
+        required = true,
         display_order = 1
     )]
     pub message: String,
