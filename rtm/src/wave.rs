@@ -39,7 +39,10 @@ impl TopMessage for WaveArg {
         &self.dir_name
     }
 
-    fn run(self) where Self: Sync + Send {
+    fn run(self)
+    where
+        Self: Sync + Send,
+    {
         let dir_name_t = std::sync::Arc::new(self.dir_name().to_string().clone());
         let message_list_t = std::sync::Arc::new(self.messages().clone());
         let self_t = std::sync::Arc::new(self.clone());

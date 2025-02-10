@@ -1,6 +1,9 @@
 use std::io::prelude::*;
 
-pub trait TopMessage where Self: 'static {
+pub trait TopMessage
+where
+    Self: 'static,
+{
     fn run(self); // due to parallel process
     fn messages(&self) -> Vec<String>;
     fn dir_name(&self) -> &str;
@@ -91,7 +94,10 @@ pub trait TopMessage where Self: 'static {
         output_file.write_all(filled_template.as_bytes()).unwrap();
     }
 
-    fn template_run(self, time: usize, single_bool: bool) where Self: Sync + Send + Sized {
+    fn template_run(self, time: usize, single_bool: bool)
+    where
+        Self: Sync + Send + Sized,
+    {
         let dir_name_t = std::sync::Arc::new(self.dir_name().to_string().clone());
         let time_t = std::sync::Arc::new(time);
         let message_list_t = std::sync::Arc::new(self.messages().to_owned());

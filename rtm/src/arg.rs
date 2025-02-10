@@ -115,6 +115,7 @@ pub struct SingleArg {
     )]
     pub tmpdir: String,
 
+    #[clap(skip)]
     pub dir_name: String,
 }
 
@@ -160,6 +161,7 @@ pub struct MultipleArg {
     )]
     pub tmpdir: String,
 
+    #[clap(skip)]
     pub dir_name: String,
 }
 
@@ -198,6 +200,7 @@ pub struct Multiple2Arg {
     )]
     pub tmpdir: String,
 
+    #[clap(skip)]
     pub dir_name: String,
 }
 
@@ -243,6 +246,7 @@ pub struct LongArg {
     )]
     pub tmpdir: String,
 
+    #[clap(skip)]
     pub dir_name: String,
 }
 
@@ -281,6 +285,7 @@ pub struct VerticalArg {
     )]
     pub tmpdir: String,
 
+    #[clap(skip)]
     pub dir_name: String,
 }
 
@@ -326,6 +331,7 @@ pub struct WaveArg {
     )]
     pub tmpdir: String,
 
+    #[clap(skip)]
     pub dir_name: String,
 }
 
@@ -370,5 +376,6 @@ pub struct GpuArg {
     )]
     pub tmpdir: String,
 
+    #[clap(skip)]
     pub dir_name: String,
 }
