@@ -13,7 +13,6 @@ impl TopMessage for GpuArg {
 
     fn run(self) {
         log::info!("GPU checking...");
-        env_logger::init();
         pollster::block_on(self.check_gpu());
 
         self.mkdir(self.dir_name());

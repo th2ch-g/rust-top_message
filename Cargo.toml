@@ -10,7 +10,6 @@ default-members = [
 ]
 
 [workspace.package]
-name = "rtm"
 version = "2.2.1"
 edition = "2021"
 authors = ["th"]

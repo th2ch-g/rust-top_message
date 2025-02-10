@@ -13,6 +13,10 @@ fn main() {
     rtm_run(&cli);
     world.barrier();
     if rank == root_rank {
-        println!("{} done", env!("CARGO_PKG_NAME"));
+        env_logger::Builder::new()
+            .filter_level(log::LevelFilter::Info)
+            .init();
+        rtm_run(&cli);
+        log::info!("{} done", env!("CARGO_PKG_NAME"));
     }
 }
