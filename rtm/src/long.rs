@@ -1,30 +1,24 @@
+use crate::arg::*;
 use crate::common::*;
 
-pub fn execute(dir_name: &str, message: &str, time: usize, length: usize) {
-    // message to list
-    let message_list: Vec<String> = process_message_list(message, length);
+impl TopMessage for LongArg {
+    fn messages(&self) -> Vec<String> {
+        if self.message.len() <= self.length {
+            return vec![self.message.to_string()];
+        }
 
-    common_execute(dir_name, &message_list, time, false);
-}
-
-fn process_message_list(message: &str, length: usize) -> Vec<String> {
-    let mut message_list: Vec<String> = Vec::new();
-
-    let quantity = message.len() / length;
-    let residue = message.len() % length;
-
-    if quantity == 0 {
-        message_list.push(message.to_string());
-        return message_list;
+        self.message
+            .as_bytes()
+            .chunks(self.length)
+            .map(|chunk| String::from_utf8_lossy(chunk).to_string())
+            .collect::<Vec<String>>()
     }
 
-    for i in 0..quantity {
-        message_list.push(message[i * length..i * length + length].to_string());
+    fn dir_name(&self) -> &str {
+        &self.dir_name
     }
 
-    if residue != 0 {
-        message_list.push(message[(quantity - 1) * length + length..].to_string());
+    fn run(self) {
+        self.clone().template_run(self.time, false)
     }
-
-    message_list
 }

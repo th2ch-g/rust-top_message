@@ -13,6 +13,7 @@ wgpu.workspace = true
 pollster.workspace = true
 env_logger.workspace = true
 log.workspace = true
+itertools.workspace = true
 
 [[bin]]
 name = "rtm"

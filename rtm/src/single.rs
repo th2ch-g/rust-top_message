@@ -1,28 +1,32 @@
+use crate::arg::*;
 use crate::common::*;
 
-pub fn execute(dir_name: &str, message: &str, thread: usize, time: usize) {
-    // mkdir
-    mkdir(dir_name);
+impl TopMessage for SingleArg {
+    fn messages(&self) -> Vec<String> {
+        vec![self.message.clone()]
+    }
 
-    // create file
-    cat(dir_name, thread, time);
-    cat_id(dir_name);
+    fn dir_name(&self) -> &str {
+        &self.dir_name
+    }
 
-    // compile
-    compile(dir_name, message);
+    fn run(self) {
+        self.mkdir(self.dir_name());
 
-    // record current dir
-    let current_dir = record_current_dir();
+        self.create_mainfile(self.dir_name(), self.thread, self.time);
 
-    // cd tmpdir
-    cd(dir_name);
+        self.create_idfile();
 
-    // run
-    run(".", message);
+        self.compile(self.dir_name(), &self.message);
 
-    // cd parent dir
-    cd(&current_dir);
+        let current_dir = self.record_current_dir();
 
-    // rmdir
-    rmdir(dir_name);
+        self.cd(&self.dir_name);
+
+        self.execute(".", &self.message);
+
+        self.cd(&current_dir);
+
+        self.rmdir();
+    }
 }

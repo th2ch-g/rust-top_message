@@ -1,28 +1,33 @@
+use crate::arg::*;
 use crate::common::*;
+use itertools::Itertools;
 
-pub fn execute(dir_name: &str, message_list: &[String], time: usize) {
-    // message to list
-    let message_list2: Vec<String> = process_message_list(message_list);
+impl TopMessage for VerticalArg {
+    fn messages(&self) -> Vec<String> {
+        let maxlen = self.message.iter().map(|s| s.len()).max().unwrap_or(0);
+        let mut result = vec![String::new(); maxlen];
 
-    common_execute(dir_name, &message_list2, time, false);
-}
-
-fn process_message_list(message_list: &[String]) -> Vec<String> {
-    let mut message_list2: Vec<String> = Vec::new();
-    let mut tmp = message_list.to_owned();
-    tmp.sort_by_key(|x| std::cmp::Reverse(x.len()));
-    let maxlen = message_list[0].len();
-    for _ in 0..maxlen {
-        message_list2.push(String::from(""));
-    }
-    for t in &tmp {
-        for j in 0..maxlen {
-            if j < t.len() {
-                message_list2[j] += &t[j..j + 1];
-            } else {
-                message_list2[j] += " ";
+        for s in self
+            .message
+            .iter()
+            .cloned()
+            .sorted_by_key(|s| std::cmp::Reverse(s.len()))
+        {
+            for (i, c) in s.chars().enumerate() {
+                result[i].push(c);
+            }
+            for i in s.len()..maxlen {
+                result[i].push(' ');
             }
         }
+        result
     }
-    message_list2
+
+    fn dir_name(&self) -> &str {
+        &self.dir_name
+    }
+
+    fn run(self) {
+        self.clone().template_run(self.time, false);
+    }
 }

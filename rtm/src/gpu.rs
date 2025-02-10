@@ -1,86 +1,99 @@
+use crate::arg::*;
 use crate::common::*;
 use std::io::prelude::*;
 
-pub fn execute(dir_name: &str, message: &str, time: usize) {
-    log::info!("GPU checking...");
-    env_logger::init();
-    pollster::block_on(check_gpu());
+impl TopMessage for GpuArg {
+    fn messages(&self) -> Vec<String> {
+        vec![self.message.clone()]
+    }
 
-    mkdir(dir_name);
+    fn dir_name(&self) -> &str {
+        &self.dir_name
+    }
 
-    gen_cargo_toml(dir_name, message);
+    fn run(self) {
+        log::info!("GPU checking...");
+        env_logger::init();
+        pollster::block_on(self.check_gpu());
 
-    gen_main_rs(dir_name, time);
+        self.mkdir(self.dir_name());
 
-    gen_shader_wgsl(dir_name);
+        self.create_cargotoml();
 
-    cat_id(dir_name);
+        self.create_gpu_mainfile();
 
-    let cwd = record_current_dir();
+        self.create_shaderwgsl();
 
-    cd(dir_name);
+        self.create_idfile();
 
-    log::info!("Compiling...");
+        let cwd = self.record_current_dir();
 
-    compile_by_cargo();
+        self.cd(self.dir_name());
 
-    log::info!("Compile done!");
+        log::info!("Compiling...");
 
-    cd("./target/debug/");
+        self.compile_with_cargo();
 
-    run(".", message);
+        log::info!("Compile done!");
 
-    cd(&cwd);
+        self.cd("./target/debug/");
 
-    rmdir(dir_name);
+        self.execute(".", &self.message);
+
+        self.cd(&cwd);
+
+        self.rmdir();
+    }
 }
 
-async fn check_gpu() {
-    let instance = wgpu::Instance::default();
-    let adapter = instance
-        .request_adapter(&wgpu::RequestAdapterOptions::default())
-        .await
-        .unwrap();
-    dbg!(&adapter.get_info());
-    let (_device, _queue) = adapter
-        .request_device(
-            &wgpu::DeviceDescriptor {
-                label: Some("Device and Queue"),
-                features: wgpu::Features::empty(),
-                limits: wgpu::Limits::downlevel_defaults(),
-            },
-            None,
-        )
-        .await
-        .expect("GPU is not available");
-}
+impl GpuArg {
+    pub fn create_cargotoml(&self) {
+        let template = include_str!("template/gpu/Cargo.toml");
+        let filled_template = template.replace("{ name }", &self.message);
+        let output_path = format!("{}/Cargo.toml", self.dir_name());
+        let mut output_file = std::fs::File::create(&output_path).unwrap();
+        output_file.write_all(filled_template.as_bytes()).unwrap();
+    }
 
-fn gen_main_rs(dir_name: &str, time: usize) {
-    let template = include_str!("template/gpu/main.rs");
-    let filled_template = template.replace("{ time }", &time.to_string());
-    let output_path = format!("{}/main.rs", dir_name);
-    let mut output_file = std::fs::File::create(&output_path).unwrap();
-    output_file.write_all(filled_template.as_bytes()).unwrap();
-}
+    pub fn create_gpu_mainfile(&self) {
+        let template = include_str!("template/gpu/main.rs");
+        let filled_template = template.replace("{ time }", &self.time.to_string());
+        let output_path = format!("{}/main.rs", self.dir_name());
+        let mut output_file = std::fs::File::create(&output_path).unwrap();
+        output_file.write_all(filled_template.as_bytes()).unwrap();
+    }
 
-fn gen_cargo_toml(dir_name: &str, message: &str) {
-    let template = include_str!("template/gpu/Cargo.toml");
-    let filled_template = template.replace("{ name }", message);
-    let output_path = format!("{}/Cargo.toml", dir_name);
-    let mut output_file = std::fs::File::create(&output_path).unwrap();
-    output_file.write_all(filled_template.as_bytes()).unwrap();
-}
+    pub fn create_shaderwgsl(&self) {
+        let template = include_str!("template/gpu/shader.wgsl");
+        let output_path = format!("{}/shader.wgsl", self.dir_name());
+        let mut output_file = std::fs::File::create(&output_path).unwrap();
+        output_file.write_all(template.as_bytes()).unwrap();
+    }
 
-fn gen_shader_wgsl(dir_name: &str) {
-    let template = include_str!("template/gpu/shader.wgsl");
-    let output_path = format!("{}/shader.wgsl", dir_name);
-    let mut output_file = std::fs::File::create(&output_path).unwrap();
-    output_file.write_all(template.as_bytes()).unwrap();
-}
+    pub fn compile_with_cargo(&self) {
+        std::process::Command::new("cargo")
+            .arg("build")
+            .output()
+            .expect("failed to cargo build");
+    }
 
-fn compile_by_cargo() {
-    std::process::Command::new("cargo")
-        .arg("build")
-        .output()
-        .expect("failed to cargo build");
+    pub async fn check_gpu(&self) {
+        let instance = wgpu::Instance::default();
+        let adapter = instance
+            .request_adapter(&wgpu::RequestAdapterOptions::default())
+            .await
+            .unwrap();
+        dbg!(&adapter.get_info());
+        let (_device, _queue) = adapter
+            .request_device(
+                &wgpu::DeviceDescriptor {
+                    label: Some("Device and Queue"),
+                    features: wgpu::Features::empty(),
+                    limits: wgpu::Limits::downlevel_defaults(),
+                },
+                None,
+            )
+            .await
+            .expect("GPU is not available");
+    }
 }

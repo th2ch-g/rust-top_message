@@ -1,10 +1,45 @@
 use clap::{Parser, Subcommand};
+use rand::prelude::*;
 
 #[derive(Parser, Debug, Clone)]
 #[clap(version, about)] //#[clap(author, version, about)]
 pub struct MainArg {
     #[clap(subcommand)]
     pub mode: Mode,
+}
+
+impl MainArg {
+    pub fn new() -> Self {
+        let mut main_arg = Self::parse();
+
+        match &mut main_arg.mode {
+            Mode::Single(arg) => arg.dir_name = gen_dir_name(&arg.tmpdir),
+            Mode::Multiple(arg) => arg.dir_name = gen_dir_name(&arg.tmpdir),
+            Mode::Multiple2(arg) => arg.dir_name = gen_dir_name(&arg.tmpdir),
+            Mode::Long(arg) => arg.dir_name = gen_dir_name(&arg.tmpdir),
+            Mode::Vertical(arg) => arg.dir_name = gen_dir_name(&arg.tmpdir),
+            Mode::Wave(arg) => arg.dir_name = gen_dir_name(&arg.tmpdir),
+            Mode::Gpu(arg) => arg.dir_name = gen_dir_name(&arg.tmpdir),
+        }
+
+        main_arg
+    }
+}
+
+fn gen_dir_name(input_name: &str) -> String {
+    let default_tmpdir_name = String::from("/tmp/tmp_rtm_(date_randomnumber_pid)");
+    if input_name == default_tmpdir_name {
+        let mut rng = rand::thread_rng();
+        let rand_num: u32 = rng.gen();
+        format!(
+            "{}_{}_{}",
+            chrono::Utc::now().format("/tmp/tmp_rtm_%Y%m%d%H%M%S"),
+            rand_num,
+            std::process::id()
+        )
+    } else {
+        input_name.to_string()
+    }
 }
 
 #[derive(Subcommand, Debug, Clone)]
@@ -79,6 +114,8 @@ pub struct SingleArg {
         display_order = 4
     )]
     pub tmpdir: String,
+
+    pub dir_name: String,
 }
 
 #[derive(Debug, clap::Args, Clone)]
@@ -122,6 +159,8 @@ pub struct MultipleArg {
         display_order = 4
     )]
     pub tmpdir: String,
+
+    pub dir_name: String,
 }
 
 #[derive(Debug, clap::Args, Clone)]
@@ -158,6 +197,8 @@ pub struct Multiple2Arg {
         display_order = 3
     )]
     pub tmpdir: String,
+
+    pub dir_name: String,
 }
 
 #[derive(Debug, clap::Args, Clone)]
@@ -201,6 +242,8 @@ pub struct LongArg {
         display_order = 4
     )]
     pub tmpdir: String,
+
+    pub dir_name: String,
 }
 
 #[derive(Debug, clap::Args, Clone)]
@@ -237,6 +280,8 @@ pub struct VerticalArg {
         display_order = 3
     )]
     pub tmpdir: String,
+
+    pub dir_name: String,
 }
 
 #[derive(Debug, clap::Args, Clone)]
@@ -280,6 +325,8 @@ pub struct WaveArg {
         display_order = 4
     )]
     pub tmpdir: String,
+
+    pub dir_name: String,
 }
 
 #[derive(Debug, clap::Args, Clone)]
@@ -322,8 +369,6 @@ pub struct GpuArg {
         display_order = 4
     )]
     pub tmpdir: String,
-}
 
-pub fn arg() -> MainArg {
-    MainArg::parse()
+    pub dir_name: String,
 }
