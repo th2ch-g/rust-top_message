@@ -389,7 +389,6 @@ pub struct GpuArg {
     pub dir_name: String,
 }
 
-
 #[derive(Debug, clap::Args, Clone)]
 #[clap(arg_required_else_help = true, version)]
 pub struct RawSingleArg {
@@ -397,7 +396,7 @@ pub struct RawSingleArg {
         short,
         long,
         value_name = "STR",
-        help = "message that appears on top",
+        help = "message that appears on top without command rename",
         required = true,
         display_order = 1
     )]
@@ -424,8 +423,6 @@ pub struct RawSingleArg {
     pub time: usize,
 }
 
-
-
 #[derive(Debug, clap::Args, Clone)]
 #[clap(arg_required_else_help = true, version)]
 pub struct RawGpuArg {
@@ -433,7 +430,7 @@ pub struct RawGpuArg {
         short,
         long,
         value_name = "STR",
-        help = "message that appears on top",
+        help = "message that appears on top without command rename",
         required = true,
         display_order = 1
     )]
@@ -445,8 +442,7 @@ pub struct RawGpuArg {
         value_name = "INT",
         default_value = "10",
         help = "display time(s)",
-        display_order = 3
+        display_order = 2
     )]
     pub time: usize,
 }
-

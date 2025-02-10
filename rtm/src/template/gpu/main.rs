@@ -1,6 +1,5 @@
 const TIME: u64 = { time };
 fn main() {
-    env_logger::init();
     pollster::block_on(run());
 }
 

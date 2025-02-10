@@ -4,11 +4,11 @@ pub mod long;
 pub mod method;
 pub mod multiple;
 pub mod multiple2;
+pub mod raw_gpu;
+pub mod raw_single;
 pub mod single;
 pub mod vertical;
 pub mod wave;
-pub mod raw_single;
-pub mod raw_gpu;
 use crate::arg::*;
 use crate::method::compile::*;
 
