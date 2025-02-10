@@ -16,8 +16,8 @@ impl TopMessage for VerticalArg {
             for (i, c) in s.chars().enumerate() {
                 result[i].push(c);
             }
-            for i in s.len()..maxlen {
-                result[i].push(' ');
+            for res in result.iter_mut().take(maxlen).skip(s.len()) {
+                res.push(' ');
             }
         }
         result

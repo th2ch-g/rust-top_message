@@ -58,10 +58,8 @@ where
         let dir_path = std::path::Path::new(self.dir_name());
         let idfile_path = dir_path.join("rtm.idfile");
 
-        if idfile_path.exists() {
-            if let Err(_) = std::fs::remove_dir_all(self.dir_name()) {
-                log::warn!("failed to rmdir but continue");
-            }
+        if idfile_path.exists() && std::fs::remove_dir_all(self.dir_name()).is_err() {
+            log::warn!("failed to rmdir but continue");
         }
     }
 

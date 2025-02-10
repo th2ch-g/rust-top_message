@@ -7,7 +7,6 @@ members = [
 
 default-members = [
     "rtm",
-    "rtm-mpi"
 ]
 
 [workspace.package]
@@ -33,9 +32,13 @@ mpi = "0.6.0"
 itertools = "0.14.0"
 
 [profile.release]
-opt-level = 3
-lto = true
+opt-level = "s"
+lto = "fat"
 strip = true
+codegen-units = 1
 
 [profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
 opt-level = 3

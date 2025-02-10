@@ -8,8 +8,8 @@ pub struct MainArg {
     pub mode: Mode,
 }
 
-impl MainArg {
-    pub fn new() -> Self {
+impl Default for MainArg {
+    fn default() -> Self {
         let mut main_arg = Self::parse();
 
         match &mut main_arg.mode {

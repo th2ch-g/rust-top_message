@@ -4,7 +4,7 @@ use rtm::rtm_run;
 use std::env;
 
 fn main() {
-    let cli: MainArg = arg();
+    let cli = MainArg::default();
     // mpi
     let universe = mpi::initialize().unwrap();
     let world = universe.world();
