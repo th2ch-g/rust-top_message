@@ -1,0 +1,14 @@
+[package]
+name = "rtm-wasm"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description.workspace = true
+
+[dependencies]
+rtm.workspace = true
+yew = { version = "0.21.0", features = ["csr"] }
+yew-router = "0.18.0"
+web-sys = { version = "0.3", features = ["Event","EventTarget","InputEvent"] }

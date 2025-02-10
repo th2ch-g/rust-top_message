@@ -28,4 +28,4 @@ jobs:
       - name: test wave
         run: cargo run -r --bin rtm wave -m "aaabbb" -@ 1 -l 3 --tmpdir ./wave
       - name: test raw-single
-        run: cargo run -r --bin rtm raw-single -m "aaa" -@ 2 -t 3 --tmpdir ./raw-single
+        run: cargo run -r --bin rtm raw-single -m "aaa" -@ 2 -t 3

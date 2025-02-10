@@ -2,11 +2,13 @@
 resolver = "2"
 members = [
     "rtm",
+    "rtm-wasm",
     "rtm-mpi",
 ]
 
 default-members = [
     "rtm",
+    "rtm-wasm",
 ]
 
 [workspace.package]
