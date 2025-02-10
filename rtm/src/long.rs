@@ -1,7 +1,7 @@
 use crate::arg::*;
 use crate::method::compile::*;
 
-impl TopMessage for LongArg {
+impl CompileTopMessage for LongArg {
     fn messages(&self) -> Vec<String> {
         if self.message.len() <= self.length {
             return vec![self.message.to_string()];

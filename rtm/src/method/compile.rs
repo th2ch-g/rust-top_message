@@ -1,6 +1,6 @@
 use std::io::prelude::*;
 
-pub trait TopMessage
+pub trait CompileTopMessage
 where
     Self: 'static,
 {

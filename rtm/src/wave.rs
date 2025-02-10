@@ -1,7 +1,7 @@
 use crate::arg::*;
 use crate::method::compile::*;
 
-impl TopMessage for WaveArg {
+impl CompileTopMessage for WaveArg {
     fn messages(&self) -> Vec<String> {
         let msg_len = self.message.len();
         let mut message_list = Vec::new();

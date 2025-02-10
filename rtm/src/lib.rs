@@ -8,7 +8,7 @@ pub mod single;
 pub mod vertical;
 pub mod wave;
 use crate::arg::*;
-use crate::method::compile::TopMessage;
+use crate::method::compile::*;
 
 pub fn rtm_run(cli: &MainArg) {
     match &cli.mode {

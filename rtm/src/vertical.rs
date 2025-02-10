@@ -2,7 +2,7 @@ use crate::arg::*;
 use crate::method::compile::*;
 use itertools::Itertools;
 
-impl TopMessage for VerticalArg {
+impl CompileTopMessage for VerticalArg {
     fn messages(&self) -> Vec<String> {
         let maxlen = self.message.iter().map(|s| s.len()).max().unwrap_or(0);
         let mut result = vec![String::new(); maxlen];

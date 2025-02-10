@@ -20,6 +20,7 @@ description = "rust-top_message: A tool which display message on top"
 [workspace.dependencies]
 rtm = { path = "rtm/" }
 rtm-mpi = { path = "rtm-mpi/" }
+anyhow = "1.0.95"
 clap = { version = "4.5.23", features = ["derive"]  }
 chrono = "0.4.22"
 rand = "0.8.5"

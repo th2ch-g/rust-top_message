@@ -1,7 +1,7 @@
 use crate::arg::*;
 use crate::method::compile::*;
 
-impl TopMessage for Multiple2Arg {
+impl CompileTopMessage for Multiple2Arg {
     fn messages(&self) -> Vec<String> {
         self.message.clone()
     }

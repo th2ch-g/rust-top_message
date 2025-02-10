@@ -2,7 +2,7 @@ use crate::arg::*;
 use crate::method::compile::*;
 use std::io::prelude::*;
 
-impl TopMessage for GpuArg {
+impl CompileTopMessage for GpuArg {
     fn messages(&self) -> Vec<String> {
         vec![self.message.clone()]
     }
@@ -13,7 +13,10 @@ impl TopMessage for GpuArg {
 
     fn run(self) {
         log::info!("GPU checking...");
-        pollster::block_on(self.check_gpu());
+
+        if let Err(e) = pollster::block_on(self.check_gpu()) {
+            log::error!("{}", e);
+        }
 
         self.mkdir(self.dir_name());
 
@@ -76,12 +79,12 @@ impl GpuArg {
             .expect("failed to cargo build");
     }
 
-    pub async fn check_gpu(&self) {
+    pub async fn check_gpu(&self) -> Result<(), anyhow::Error> {
         let instance = wgpu::Instance::default();
         let adapter = instance
             .request_adapter(&wgpu::RequestAdapterOptions::default())
             .await
-            .unwrap();
+            .ok_or_else(|| anyhow::anyhow!("Failed to find an appropriate GPU adapter"))?;
         dbg!(&adapter.get_info());
         let (_device, _queue) = adapter
             .request_device(
@@ -93,6 +96,8 @@ impl GpuArg {
                 None,
             )
             .await
-            .expect("GPU is not available");
+            .map_err(|e| anyhow::anyhow!("Failed to create device and queue: {}", e))?;
+
+        Ok(())
     }
 }
