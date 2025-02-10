@@ -7,6 +7,8 @@ pub mod multiple2;
 pub mod single;
 pub mod vertical;
 pub mod wave;
+pub mod raw_single;
+pub mod raw_gpu;
 use crate::arg::*;
 use crate::method::compile::*;
 
@@ -19,5 +21,7 @@ pub fn rtm_run(cli: &MainArg) {
         Mode::Long(arg) => arg.clone().run(),
         Mode::Wave(arg) => arg.clone().run(),
         Mode::Gpu(arg) => arg.clone().run(),
+        Mode::RawSingle(arg) => arg.run(),
+        Mode::RawGpu(arg) => arg.run(),
     }
 }

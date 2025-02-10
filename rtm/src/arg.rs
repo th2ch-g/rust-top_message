@@ -20,6 +20,7 @@ impl Default for MainArg {
             Mode::Vertical(arg) => arg.dir_name = gen_dir_name(&arg.tmpdir),
             Mode::Wave(arg) => arg.dir_name = gen_dir_name(&arg.tmpdir),
             Mode::Gpu(arg) => arg.dir_name = gen_dir_name(&arg.tmpdir),
+            _ => (),
         }
 
         main_arg
@@ -71,6 +72,14 @@ pub enum Mode {
     /// one message on one nvtop/nvitop
     #[clap(display_order = 7)]
     Gpu(GpuArg),
+
+    /// simple cpu execution without command rename
+    #[clap(display_order = 8)]
+    RawSingle(RawSingleArg),
+
+    /// simple gpu execution without command rename
+    #[clap(display_order = 9)]
+    RawGpu(RawGpuArg),
 }
 
 #[derive(Debug, clap::Args, Clone)]
@@ -379,3 +388,65 @@ pub struct GpuArg {
     #[clap(skip)]
     pub dir_name: String,
 }
+
+
+#[derive(Debug, clap::Args, Clone)]
+#[clap(arg_required_else_help = true, version)]
+pub struct RawSingleArg {
+    #[clap(
+        short,
+        long,
+        value_name = "STR",
+        help = "message that appears on top",
+        required = true,
+        display_order = 1
+    )]
+    pub message: String,
+
+    #[clap(
+        short = '@',
+        long,
+        value_name = "INT",
+        default_value = "1",
+        help = "thread number",
+        display_order = 2
+    )]
+    pub thread: usize,
+
+    #[clap(
+        short,
+        long,
+        value_name = "INT",
+        default_value = "10",
+        help = "display time(s)",
+        display_order = 3
+    )]
+    pub time: usize,
+}
+
+
+
+#[derive(Debug, clap::Args, Clone)]
+#[clap(arg_required_else_help = true, version)]
+pub struct RawGpuArg {
+    #[clap(
+        short,
+        long,
+        value_name = "STR",
+        help = "message that appears on top",
+        required = true,
+        display_order = 1
+    )]
+    pub message: String,
+
+    #[clap(
+        short,
+        long,
+        value_name = "INT",
+        default_value = "10",
+        help = "display time(s)",
+        display_order = 3
+    )]
+    pub time: usize,
+}
+
