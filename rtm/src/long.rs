@@ -1,5 +1,5 @@
 use crate::arg::*;
-use crate::common::*;
+use crate::method::compile::*;
 
 impl TopMessage for LongArg {
     fn messages(&self) -> Vec<String> {

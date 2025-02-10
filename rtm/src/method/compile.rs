@@ -76,14 +76,14 @@ where
     }
 
     fn create_idfile(&self) {
-        let template = include_str!("template/rtm.idfile");
+        let template = include_str!("../template/rtm.idfile");
         let output_path = format!("{}/rtm.idfile", self.dir_name());
         let mut output_file = std::fs::File::create(&output_path).unwrap();
         output_file.write_all(template.as_bytes()).unwrap();
     }
 
     fn create_mainfile(&self, dir_name: &str, thread: usize, time: usize) {
-        let template = include_str!("template/ms.rs");
+        let template = include_str!("../template/ms.rs");
         let filled_template = template
             .replace("{ thread }", &thread.to_string())
             .replace("{ time }", &time.to_string());

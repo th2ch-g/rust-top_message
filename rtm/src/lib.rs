@@ -1,14 +1,14 @@
 pub mod arg;
-pub mod common;
 pub mod gpu;
 pub mod long;
+pub mod method;
 pub mod multiple;
 pub mod multiple2;
 pub mod single;
 pub mod vertical;
 pub mod wave;
 use crate::arg::*;
-use crate::common::*;
+use crate::method::compile::TopMessage;
 
 pub fn rtm_run(cli: &MainArg) {
     match &cli.mode {

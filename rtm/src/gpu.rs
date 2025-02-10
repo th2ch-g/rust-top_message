@@ -1,5 +1,5 @@
 use crate::arg::*;
-use crate::common::*;
+use crate::method::compile::*;
 use std::io::prelude::*;
 
 impl TopMessage for GpuArg {

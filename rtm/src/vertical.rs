@@ -1,5 +1,5 @@
 use crate::arg::*;
-use crate::common::*;
+use crate::method::compile::*;
 use itertools::Itertools;
 
 impl TopMessage for VerticalArg {

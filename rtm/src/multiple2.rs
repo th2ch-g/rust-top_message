@@ -1,5 +1,5 @@
 use crate::arg::*;
-use crate::common::*;
+use crate::method::compile::*;
 
 impl TopMessage for Multiple2Arg {
     fn messages(&self) -> Vec<String> {
