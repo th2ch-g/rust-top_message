@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./tailwind-4e997d34981655c2.css" integrity="sha384&#x2D;3nElDqwU4iBojE1uo0gHFX3h30vqBlFigjdyfu&#x2F;JpRZv8gCGnyiyck3jp&#x2B;8mpwc9"/>
+        <link rel="icon" href="../img/logo.png" type="image/png">
+        <title>rust-top_messagen wasm example</title>
+        <meta name="description" content="rust-top_messagen wasm example" />
+    <link rel="modulepreload" href="./rtm-wasm-ac43a14b553e7cd3.js" crossorigin="anonymous" integrity="sha384-XoXR3bh/dYeFBekRLb1sCcFq7w1Ig5HaQVGQrubjBfhofvk2n9SZ9xal6EWRIw7F"><link rel="preload" href="./rtm-wasm-ac43a14b553e7cd3_bg.wasm" crossorigin="anonymous" integrity="sha384-g6XPGdgWBCGzzTwe/fyN1ubIzJVJUFFxjlrre5J6LJc+1F7+SA79gHEgPtsI+t6f" as="fetch" type="application/wasm"></head>
+    <body>
+<script type="module">
+import init, * as bindings from './rtm-wasm-ac43a14b553e7cd3.js';
+const wasm = await init('./rtm-wasm-ac43a14b553e7cd3_bg.wasm');
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script></body>
+</html>
