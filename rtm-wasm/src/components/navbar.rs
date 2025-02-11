@@ -27,7 +27,7 @@ impl Component for Navbar {
                             <span
                                 class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
                             >
-                                { "rust-top-message wasm example" }
+                                { "rust-top_message wasm example" }
                             </span>
                         </Link<Routes>>
                     </a>
@@ -40,7 +40,7 @@ impl Component for Navbar {
                             { "Author" }
                         </a>
                         <a
-                            href="https://github.com/th2ch-g/rust-top-message"
+                            href="https://github.com/th2ch-g/rust-top_message"
                             target="_blank"
                             class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
                         >
