@@ -1,84 +1,82 @@
-use crate::common::*;
+use crate::arg::*;
+use crate::method::compile::*;
 
-pub fn execute(dir_name: &str, message: &str, thread: usize, length: usize) {
-    // make message_list
-    let message_list = process_message_list(message, length);
+impl CompileTopMessage for WaveArg {
+    fn messages(&self) -> Vec<String> {
+        let msg_len = self.message.len();
+        let mut message_list = Vec::new();
 
-    // data access for thread
-    let dir_name_t = std::sync::Arc::new(dir_name.to_string().clone());
-    let message_list_t = std::sync::Arc::new(message_list.clone());
+        if msg_len < self.length {
+            for i in 0..msg_len {
+                let tmp = format!(
+                    "{}{}{}",
+                    &self.message[i..],
+                    " ".repeat(self.length - msg_len),
+                    &self.message[..i]
+                );
+                message_list.push(tmp);
+            }
 
-    // mkdir
-    mkdir(dir_name);
-    mkdir(&format!("{}/{}", dir_name, "run"));
-
-    // create file & additional dir & compile
-    cat_id(dir_name);
-
-    let mut thrs = Vec::new();
-
-    for i in 0..message_list.len() {
-        let dir_name_r = std::sync::Arc::clone(&dir_name_t);
-        let message_list_r = std::sync::Arc::clone(&message_list_t);
-
-        thrs.push(std::thread::spawn(move || {
-            mkdir(&format!("{}/{}", dir_name_r, i));
-            cat(&format!("{}/{}", dir_name_r, i), thread, 2);
-            compile2(&dir_name_r, &i.to_string(), &message_list_r[i]);
-        }));
+            for i in 0..(self.length - msg_len) {
+                let tmp = format!(
+                    "{}{}{}",
+                    " ".repeat(self.length - msg_len - i),
+                    self.message,
+                    " ".repeat(i)
+                );
+                message_list.push(tmp);
+            }
+        } else {
+            for i in 0..=msg_len {
+                let tmp = format!("{} {}", &self.message[i..], &self.message[..i]);
+                message_list.push(tmp[..self.length.min(tmp.len())].to_string());
+            }
+        }
+        message_list
     }
 
-    thrs.into_iter().for_each(|h| h.join().unwrap());
-
-    // record current dir
-    let current_dir = record_current_dir();
-    cd(&format!("{}/{}", dir_name, "run"));
-
-    // run
-    for message in message_list {
-        run(".", &message);
+    fn dir_name(&self) -> &str {
+        &self.dir_name
     }
 
-    // cd parent dir
-    cd(&current_dir);
+    fn run(self)
+    where
+        Self: Sync + Send,
+    {
+        let dir_name_t = std::sync::Arc::new(self.dir_name().to_string().clone());
+        let message_list_t = std::sync::Arc::new(self.messages().clone());
+        let self_t = std::sync::Arc::new(self.clone());
 
-    // rmdir
-    rmdir(dir_name);
-}
+        self_t.mkdir(self_t.dir_name());
+        self_t.mkdir(&format!("{}/{}", self_t.dir_name(), "run"));
 
-fn process_message_list(message: &str, length: usize) -> Vec<String> {
-    let mut message_list = Vec::new();
+        self_t.create_idfile();
 
-    if message.len() < length {
-        for i in 0..message.len() {
-            let mut tmp = String::from("");
+        let mut thrs = Vec::new();
 
-            tmp += &message[i..];
-            tmp += &" ".repeat(length - message.len());
-            tmp += &message[..i];
+        for i in 0..self_t.messages().len() {
+            let dir_name_r = std::sync::Arc::clone(&dir_name_t);
+            let message_list_r = std::sync::Arc::clone(&message_list_t);
+            let self_r = std::sync::Arc::clone(&self_t);
 
-            message_list.push(tmp);
+            thrs.push(std::thread::spawn(move || {
+                self_r.mkdir(&format!("{}/{}", dir_name_r, i));
+                self_r.create_mainfile(&format!("{}/{}", dir_name_r, i), self.thread, 2);
+                self_r.compile_with_subdir(&dir_name_r, &i.to_string(), &message_list_r[i]);
+            }));
         }
 
-        for i in 0..length - message.len() {
-            let mut tmp = String::from("");
+        thrs.into_iter().for_each(|h| h.join().unwrap());
 
-            tmp += &" ".repeat(length - message.len() - i);
-            tmp += message;
-            tmp += &" ".repeat(i);
+        let current_dir = self_t.record_current_dir();
+        self_t.cd(&format!("{}/{}", self_t.dir_name(), "run"));
 
-            message_list.push(tmp);
+        for message in self.messages() {
+            self_t.execute(".", &message);
         }
-    } else {
-        for i in 0..message.len() + 1 {
-            let mut tmp = String::from("");
-            tmp += &message[i..];
-            tmp += " ";
-            tmp += &message[..i];
 
-            message_list.push(tmp[..length].to_string());
-        }
+        self_t.cd(&current_dir);
+
+        self_t.rmdir();
     }
-
-    message_list
 }

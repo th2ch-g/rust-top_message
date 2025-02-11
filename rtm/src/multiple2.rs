@@ -1,6 +1,16 @@
-use crate::common::*;
+use crate::arg::*;
+use crate::method::compile::*;
 
-pub fn execute(dir_name: &str, message_list: &[String], time: usize) {
-    // message to list
-    common_execute(dir_name, message_list, time, true);
+impl CompileTopMessage for Multiple2Arg {
+    fn messages(&self) -> Vec<String> {
+        self.message.clone()
+    }
+
+    fn dir_name(&self) -> &str {
+        &self.dir_name
+    }
+
+    fn run(self) {
+        self.clone().template_run(self.time, true);
+    }
 }

@@ -2,17 +2,17 @@
 resolver = "2"
 members = [
     "rtm",
+    "rtm-wasm",
     "rtm-mpi",
 ]
 
 default-members = [
     "rtm",
-    "rtm-mpi"
+    "rtm-wasm",
 ]
 
 [workspace.package]
-name = "rtm"
-version = "2.2.1"
+version = "2.3.0"
 edition = "2021"
 authors = ["th"]
 license = "MIT"
@@ -22,6 +22,8 @@ description = "rust-top_message: A tool which display message on top"
 [workspace.dependencies]
 rtm = { path = "rtm/" }
 rtm-mpi = { path = "rtm-mpi/" }
+rtm-wasm = { path = "rtm-wasm/" }
+anyhow = "1.0.95"
 clap = { version = "4.5.23", features = ["derive"]  }
 chrono = "0.4.22"
 rand = "0.8.5"
@@ -30,11 +32,19 @@ pollster = "0.3.0"
 env_logger = "0.10.1"
 log = "0.4.21"
 mpi = "0.6.0"
+itertools = "0.14.0"
+yew = { version = "0.21.0", features = ["csr"] }
+yew-router = "0.18.0"
+web-sys = { version = "0.3", features = ["Event","EventTarget","InputEvent"] }
 
 [profile.release]
-opt-level = 3
-lto = true
+opt-level = "s"
+lto = "fat"
 strip = true
+codegen-units = 1
 
 [profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
 opt-level = 3

@@ -1,16 +1,16 @@
-use crate::common::*;
+use crate::arg::*;
+use crate::method::compile::*;
 
-pub fn execute(dir_name: &str, message: &str, thread: usize, time: usize) {
-    // message to list
-    let message_list: Vec<String> = process_message_list(message, thread);
-
-    common_execute(dir_name, &message_list, time, true);
-}
-
-fn process_message_list(message: &str, thread: usize) -> Vec<String> {
-    let mut message_list: Vec<String> = Vec::new();
-    for _ in 0..thread {
-        message_list.push(message.to_string());
+impl CompileTopMessage for MultipleArg {
+    fn messages(&self) -> Vec<String> {
+        vec![self.message.clone(); self.thread]
     }
-    message_list
+
+    fn dir_name(&self) -> &str {
+        &self.dir_name
+    }
+
+    fn run(self) {
+        self.clone().template_run(self.time, true);
+    }
 }
