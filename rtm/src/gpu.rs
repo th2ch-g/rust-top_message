@@ -85,7 +85,6 @@ impl GpuArg {
             .request_adapter(&wgpu::RequestAdapterOptions::default())
             .await
             .ok_or_else(|| anyhow::anyhow!("Failed to find an appropriate GPU adapter"))?;
-        dbg!(&adapter.get_info());
         let (_device, _queue) = adapter
             .request_device(
                 &wgpu::DeviceDescriptor {

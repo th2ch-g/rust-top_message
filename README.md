@@ -1,6 +1,6 @@
 <p align="center">
   <img width="200" src="img/logo.png" />
-  <h2 align="center"> rust-top_message </h2>
+  <h2 align="center"> rust-top_message; rtm </h2>
   <p align="center">✨✨ Display message on top 😱😭</p>
 </p>
 
@@ -29,10 +29,10 @@
 </p>
 
 
-# rust-top_message
+# rust-top_message; rtm
 ![GIF](img/rtm_example.gif)
 
-- [rust-top\_message](#rust-top_message)
+- [rust-top\_message; rtm](#rust-top_message-rtm)
   - [Install](#install)
     - [Dependencies](#dependencies)
   - [Install OpenMPI version](#install-openmpi-version)
@@ -46,6 +46,8 @@
     - [Vertical mode](#vertical-mode)
     - [Wave mode](#wave-mode)
     - [Gpu mode](#gpu-mode)
+    - [RawSingle mode](#rawsingle-mode)
+    - [RawGpu mode](#rawgpu-mode)
 
 ## Install
 ~~~shell
@@ -139,5 +141,21 @@ rtm gpu -m "RustGPU" & nvidia-smi
 rtm gpu -m "RustGPU" & nvtop
 # nvitop
 rtm gpu -m "RustGPU" & nvitop
+~~~
+
+
+### RawSingle mode
+- Run immediately without compiling or copying and without changing the command name.
+- CPU is used
+~~~shell
+rtm raw-single -m "aaa" -t 20 & top
+~~~
+
+
+### RawGpu mode
+- Run immediately without compiling or copying and without changing the command name.
+- GPU is used by wgpu
+~~~shell
+rtm raw-gpu -m "aaa" -t 20 & nvtop
 ~~~
 

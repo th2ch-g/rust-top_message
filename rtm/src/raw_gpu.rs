@@ -8,7 +8,7 @@ impl RawGpuArg {
     async fn core(&self) {
         let start = std::time::Instant::now();
         loop {
-            if start.elapsed().as_secs() >= self.time as u64 {
+            if start.elapsed().as_secs() >= (self.time as u64) {
                 break;
             }
             let state = State::new().await;
