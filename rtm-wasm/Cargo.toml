@@ -9,6 +9,6 @@ description.workspace = true
 
 [dependencies]
 rtm.workspace = true
-yew = { version = "0.21.0", features = ["csr"] }
-yew-router = "0.18.0"
-web-sys = { version = "0.3", features = ["Event","EventTarget","InputEvent"] }
+yew.workspace = true
+yew-router.workspace = true
+web-sys.workspace = true

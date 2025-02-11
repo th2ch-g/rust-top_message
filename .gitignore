@@ -2,3 +2,7 @@
 rtm-mpi/target/
 rtm-lib/target/
 .DS_Store
+
+rtm-wasm/node_modules/
+rtm-wasm/tailwind.css
+rtm-wasm/dist/
